@@ -1,0 +1,2244 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alloggi | Imóveis de Alto Padrão em São Paulo</title>
+  <meta name="description" content="Alloggi Imóveis de Alto Padrão - Curadoria exclusiva de coberturas, casas contemporâneas e apartamentos de luxo em São Paulo. Jardins, Itaim Bibi, Pinheiros e Vila Nova Conceição.">
+  
+  <!-- Favicon Monograma Elegante -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%231B4332'/><path d='M30 72L50 26L70 72M38 56H62' stroke='%23D8F3DC' stroke-width='8' stroke-linecap='round' stroke-linejoin='round' fill='none'/></svg>">
+
+  <!-- Google Fonts: Plus Jakarta Sans (Texto limpo e moderno) + Playfair Display (Títulos editoriais sofisticados) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            forest: {
+              DEFAULT: '#1B4332',
+              dark: '#122e22',
+              light: '#245943',
+            },
+            emerald: {
+              DEFAULT: '#2D6A4F',
+              hover: '#22523d',
+              light: '#3e8f6c',
+            },
+            sage: {
+              DEFAULT: '#D8F3DC',
+              light: '#eefaf1',
+              dark: '#b3e8bd',
+            },
+            offwhite: '#F4F7F5',
+            charcoal: {
+              DEFAULT: '#1F2937',
+              muted: '#4B5563',
+              subtle: '#6B7280',
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
+            serif: ['"Playfair Display"', 'Georgia', 'serif'],
+          },
+          boxShadow: {
+            'luxury': '0 10px 30px -5px rgba(27, 67, 50, 0.08), 0 4px 6px -2px rgba(27, 67, 50, 0.04)',
+            'luxury-hover': '0 20px 35px -5px rgba(27, 67, 50, 0.16), 0 10px 10px -5px rgba(27, 67, 50, 0.06)',
+            'card': '0 2px 15px -3px rgba(0, 0, 0, 0.04), 0 4px 6px -2px rgba(0, 0, 0, 0.02)',
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- React 18, ReactDOM & Babel -->
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <style>
+    /* Estilos globais e refinamentos estéticos */
+    body {
+      background-color: #F4F7F5;
+      color: #1F2937;
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      scroll-behavior: smooth;
+    }
+
+    /* Scrollbar personalizada nas cores Alloggi */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #F4F7F5;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #b3e8bd;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #2D6A4F;
+    }
+
+    /* Animações suaves */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in {
+      animation: fadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    
+    @keyframes modalPop {
+      from { opacity: 0; transform: scale(0.96) translateY(10px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .animate-modal {
+      animation: modalPop 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+  </style>
+</head>
+<body class="bg-offwhite text-charcoal min-h-screen flex flex-col selection:bg-sage selection:text-forest">
+  <div id="root"></div>
+
+  <!-- Código da Aplicação React -->
+  <script type="text/babel">
+    const { useState, useEffect, useMemo } = React;
+
+    // --- BANCO DE DADOS DOS IMÓVEIS ALLOGGI ---
+    const PROPERTIES_DATA = [
+      {
+        id: 1,
+        code: "ALG-101",
+        title: "Cobertura Duplex Suspensa com Vista Panorâmica",
+        neighborhood: "Jardins",
+        city: "São Paulo",
+        purpose: "Comprar",
+        type: "Cobertura",
+        price: 8900000,
+        condo: 6800,
+        iptu: 2400,
+        area: 450,
+        bedrooms: 4,
+        suites: 4,
+        bathrooms: 5,
+        parking: 4,
+        tag: "Exclusivo Alloggi",
+        tagType: "exclusive",
+        description: "Uma verdadeira obra de arte arquitetônica suspensa sobre o coração dos Jardins. Esta magnífica cobertura duplex conta com pé-direito duplo de 6 metros no living, acabamento nobre em mármore travertino romano bruto, adega climatizada envidraçada para 450 rótulos e um terraço privativo espetacular com piscina aquecida de borda infinita e vista indevassável de 360 graus para a copa das árvores e o skyline paulistano.",
+        amenities: [
+          "Piscina Privativa Aquecida",
+          "Adega Climatizada para 450 Rótulos",
+          "Varanda Gourmet com Parrilla",
+          "Pé-direito Duplo no Living",
+          "Elevador com Acesso Biométrico",
+          "Ar Condicionado Central VRF",
+          "Gerador Full para Todo o Imóvel",
+          "4 Vagas Livres Demarcadas"
+        ],
+        images: [
+          "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80",
+          "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80",
+          "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1200&q=80",
+          "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80"
+        ]
+      },
+      {
+        id: 2,
+        code: "ALG-102",
+        title: "Apartamento Contemporâneo com Living Integrado",
+        neighborhood: "Itaim Bibi",
+        city: "São Paulo",
+        purpose: "Comprar",
+        type: "Apartamento",
+        price: 3850000,
+        condo: 2950,
+        iptu: 1100,
+        area: 185,
+        bedrooms: 3,
+        suites: 3,
+        bathrooms: 4,
+        parking: 3,
+        tag: "Venda",
+        tagType: "sale",
+        description: "Localizado em uma das ruas mais arborizadas e cobiçadas do Itaim Bibi, a poucos passos da Av. Faria Lima e dos mais estrelados restaurantes da cidade. Planta impecável com total integração entre sala de estar, sala de jantar e varanda gourmet envidraçada. Projeto luminotécnico assinado, marcenaria de alto padrão e automação completa de persianas, áudio e iluminação.",
+        amenities: [
+          "Varanda Gourmet com Churrasqueira",
+          "Automação Residencial Control4",
+          "Academia com Equipamentos Matrix",
+          "Piscina Coberta com Raia de 25m",
+          "Spa com Sauna Seca e Úmida",
+          "Carregador Dedicado para Carro Elétrico",
+          "Portaria Blindada e Segurança 24h",
+          "Depósito Privativo na Garagem"
+        ],
+        images: [
+          "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80",
+          "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80",
+          "https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=1200&q=80",
+          "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1200&q=80"
+        ]
+      },
+      {
+        id: 3,
+        code: "ALG-103",
+        title: "Residência Minimalista com Paisagismo Tropical",
+        neighborhood: "Alto de Pinheiros",
+        city: "São Paulo",
+        purpose: "Comprar",
+        type: "Casa",
+        price: 9200000,
+        condo: 0,
+        iptu: 2800,
+        area: 510,
+        bedrooms: 4,
+        suites: 4,
+        bathrooms: 5,
+        parking: 4,
+        tag: "Destaque",
+        tagType: "featured",
+        description: "Concebida para conectar os ambientes internos à natureza exuberante de um projeto paisagístico tropical assinado. A casa conta com grandes panos de vidro do chão ao teto, piso em tábua corrida de cumaru de demolição e ampla área externa com piscina em pedra Hijau natural da Indonésia, solarium de madeira teca e espaço gourmet completo.",
+        amenities: [
+          "Piscina Aquecida em Pedra Hijau",
+          "Paisagismo Tropical com Irrigação Automática",
+          "Espaço Gourmet com Forno a Lenha e Parrilla",
+          "Usina de Energia Solar Fotovoltaica",
+          "Circuito Fechado de TV com IA",
+          "Lareira Ecológica a Bioetanol",
+          "Home Office Privativo com Vista Jardim",
+          "Guarita de Segurança com Blindagem III-A"
+        ],
+        images: [
+          "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80",
+          "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1200&q=80",
+          "https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=1200&q=80",
+          "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1200&q=80"
+        ]
+      },
+      {
+        id: 4,
+        code: "ALG-104",
+        title: "Garden Residence Exclusivo Frente à Praça",
+        neighborhood: "Vila Nova Conceição",
+        city: "São Paulo",
+        purpose: "Alugar",
+        type: "Apartamento",
+        price: 22000,
+        condo: 3800,
+        iptu: 1400,
+        area: 240,
+        bedrooms: 3,
+        suites: 3,
+        bathrooms: 4,
+        parking: 3,
+        tag: "Locação",
+        tagType: "rent",
+        description: "A rara experiência de desfrutar do espaço e da privacidade de uma casa com a comodidade e segurança máxima de um condomínio boutique a poucos metros da Praça Pereira Coutinho. Jardim privativo gramado com jacuzzi aquecida, decorado com peças de designers premiados e cozinha gourmet equipada com eletrodomésticos italianos de última geração.",
+        amenities: [
+          "Jardim Privativo Gramado com Jacuzzi",
+          "Mobiliado e Decorado por Arquiteto Renomado",
+          "Eletrodomésticos Italianos Bertazzoni",
+          "Serviço de Concierge 24 Horas",
+          "Sauna Seca Privativa na Suíte Master",
+          "Academia Technogym no Prédio",
+          "Vagas com Ponto de Carga Rápida",
+          "Sistema de Filtração Central de Água"
+        ],
+        images: [
+          "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=80",
+          "https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&w=1200&q=80",
+          "https://images.unsplash.com/photo-1600585152220-90363fe7e115?auto=format&fit=crop&w=1200&q=80",
+          "https://images.unsplash.com/photo-1600573472591-ee6b68d14c68?auto=format&fit=crop&w=1200&q=80"
+        ]
+      },
+      {
+        id: 5,
+        code: "ALG-105",
+        title: "Cobertura Linear com Solarium e Spa Privativo",
+        neighborhood: "Pinheiros",
+        city: "São Paulo",
+        purpose: "Comprar",
+        type: "Cobertura",
+        price: 4600000,
+        condo: 3400,
+        iptu: 1250,
+        area: 210,
+        bedrooms: 3,
+        suites: 2,
+        bathrooms: 3,
+        parking: 2,
+        tag: "Venda",
+        tagType: "sale",
+        description: "Cobertura de plano único que une fluidez, requinte e sofisticação no bairro mais cosmopolita e vibrante de São Paulo. Área externa ensolarada com pergolado em madeira maciça, espaço gourmet integrado e deck suspenso com spa de hidromassagem para até 6 pessoas. Living amplo e acolhedor conectado à cozinha de conceito aberto.",
+        amenities: [
+          "Solarium Privativo com Spa de Hidro",
+          "Pergolado em Madeira com Área Lounge",
+          "Cozinha em Ilha Gourmet com Cooktop de Indução",
+          "Fechadura Digital com Biometria e Senha",
+          "Espaço Coworking Privativo no Edifício",
+          "Piscina Coberta Aquecida",
+          "Pet Place e Área Verde para Passeio",
+          "2 Vagas Grandes e Livres"
+        ],
+        images: [
+          "https://images.unsplash.com/photo-1567496898669-ee935f5f647a?auto=format&fit=crop&w=1200&q=80",
+          "https://images.unsplash.com/photo-1502005229762-ee1b2da92c0b?auto=format&fit=crop&w=1200&q=80",
+          "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=80"
+        ]
+      },
+      {
+        id: 6,
+        code: "ALG-106",
+        title: "Studio Design Boutique com Vista para as Árvores",
+        neighborhood: "Moema",
+        city: "São Paulo",
+        purpose: "Alugar",
+        type: "Apartamento",
+        price: 5800,
+        condo: 850,
+        iptu: 320,
+        area: 58,
+        bedrooms: 1,
+        suites: 1,
+        bathrooms: 1,
+        parking: 1,
+        tag: "Locação",
+        tagType: "rent",
+        description: "Perfeito para executivos e profissionais exigentes que valorizam conveniência, bom gosto e localização privilegiada no lado Pássaros de Moema. Planta milimetricamente planejada com marcenaria ripada sob medida, varanda espaçosa voltada para a copa das árvores e condomínio com estrutura completa de hotel boutique cinco estrelas.",
+        amenities: [
+          "Rooftop com Piscina Panorâmica e Lounge",
+          "Serviço de Lavanderia OMO Compartilhada",
+          "Academia Completa Life Fitness",
+          "Espaço Gourmet com Vista da Cidade",
+          "Tomada Dedicada para Veículo Elétrico",
+          "Concierge e Recepção 24 Horas"
+        ],
+        images: [
+          "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=1200&q=80",
+          "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=1200&q=80",
+          "https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=1200&q=80"
+        ]
+      },
+      {
+        id: 7,
+        code: "ALG-107",
+        title: "Mansão Neoclássica Contemporânea com Quadra de Beach Tennis",
+        neighborhood: "Jardins",
+        city: "São Paulo",
+        purpose: "Comprar",
+        type: "Casa",
+        price: 14500000,
+        condo: 0,
+        iptu: 4500,
+        area: 780,
+        bedrooms: 5,
+        suites: 5,
+        bathrooms: 7,
+        parking: 6,
+        tag: "Exclusivo Alloggi",
+        tagType: "exclusive",
+        description: "Um refúgio de absoluta privacidade e requinte monumental no Jardim Europa. Projeto arquitetônico de referência com vãos livres majestosos, mármore pighes importado e marcenaria Ornare em todos os ambientes. Estrutura de lazer comparável a um resort particular, com raia de 18 metros aquecida, quadra oficial de beach tennis e espaço para recepções de até 60 convidados.",
+        amenities: [
+          "Quadra Oficial de Beach Tennis e Pickleball",
+          "Piscina Aquecida de 18 Metros",
+          "Sauna Úmida com Parede de Vidro para o Jardim",
+          "Guarita Blindada Própria no Acesso",
+          "Home Theater com Isolamento Acústico",
+          "Adega Subterrânea Climatizada",
+          "Suíte Master com 90m² e Closets Individuais",
+          "Garagem Subterrânea para 6 Carros"
+        ],
+        images: [
+          "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1200&q=80",
+          "https://images.unsplash.com/photo-1600607687644-c7171b42498f?auto=format&fit=crop&w=1200&q=80",
+          "https://images.unsplash.com/photo-1600585154363-67eb9e2e2099?auto=format&fit=crop&w=1200&q=80"
+        ]
+      },
+      {
+        id: 8,
+        code: "ALG-108",
+        title: "Apartamento Vista Parque Ibirapuera",
+        neighborhood: "Vila Mariana",
+        city: "São Paulo",
+        purpose: "Alugar",
+        type: "Apartamento",
+        price: 14500,
+        condo: 2600,
+        iptu: 980,
+        area: 165,
+        bedrooms: 3,
+        suites: 3,
+        bathrooms: 3,
+        parking: 2,
+        tag: "Locação",
+        tagType: "rent",
+        description: "Desperte todos os dias contemplando o mar de copas verdes do Parque do Ibirapuera. Apartamento completamente remodelado com acabamentos de altíssimo padrão, varanda envidraçada sem emendas integrada ao living, climatização central silenciosa e armários planejados de marcenaria nobre em todas as suítes.",
+        amenities: [
+          "Vista Eterna e Definitiva para o Parque Ibirapuera",
+          "Varanda Integrada ao Living Social",
+          "Condomínio Clube com Infraestrutura Completa",
+          "Piscina Aquecida Coberta com Teto de Vidro",
+          "Quadra de Tênis Oficial de Saibro",
+          "Espaço Gourmet e Salão de Festas Climatizado"
+        ],
+        images: [
+          "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&w=1200&q=80",
+          "https://images.unsplash.com/photo-1600585152220-90363fe7e115?auto=format&fit=crop&w=1200&q=80",
+          "https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&w=1200&q=80"
+        ]
+      },
+      {
+        id: 9,
+        code: "ALG-109",
+        title: "Penthouse Clássica com Terraço Jardim em Higienópolis",
+        neighborhood: "Higienópolis",
+        city: "São Paulo",
+        purpose: "Comprar",
+        type: "Cobertura",
+        price: 6400000,
+        condo: 4200,
+        iptu: 1800,
+        area: 310,
+        bedrooms: 4,
+        suites: 3,
+        bathrooms: 5,
+        parking: 3,
+        tag: "Venda",
+        tagType: "sale",
+        description: "A clássica sofisticação paulistana traduzida em um imóvel único no coração cultural de Higienópolis. Amplo living com múltiplos ambientes, lareira em mármore nero marquina, pé-direito clássico generoso e um deslumbrante terraço com jardim arborizado privativo, criando um verdadeiro oásis urbano a passos do Shopping Pátio Higienópolis.",
+        amenities: [
+          "Terraço Arborizado com Deck em Madeira",
+          "Lareira Clássica em Mármore Nero Marquina",
+          "Piso em Madeira Maciça de Ébano Restaurado",
+          "Edifício de Arquitetura Clássica Preservada",
+          "3 Vagas Livres no Subsolo",
+          "Portaria com Segurança 24 Horas Armada"
+        ],
+        images: [
+          "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1200&q=80",
+          "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80",
+          "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80"
+        ]
+      },
+      {
+        id: 10,
+        code: "ALG-110",
+        title: "Laje Corporativa Triple A na Faria Lima",
+        neighborhood: "Itaim Bibi",
+        city: "São Paulo",
+        purpose: "Comprar",
+        type: "Comercial",
+        price: 15000000,
+        condo: 12000,
+        iptu: 5400,
+        area: 680,
+        bedrooms: 0,
+        suites: 0,
+        bathrooms: 8,
+        parking: 12,
+        tag: "Comercial",
+        tagType: "commercial",
+        description: "Prestígio corporativo absoluto no epicentro financeiro da América Latina. Andar corrido com certificação LEED Platinum, piso elevado com cabeamento estruturado categoria 6A, forro modular acústico com iluminação LED inteligente, ar condicionado central VRF de altíssima eficiência e 12 vagas de garagem demarcadas.",
+        amenities: [
+          "Certificação Sustentável LEED Platinum",
+          "Auditório Corporativo e Heliponto Homologado",
+          "Ar Condicionado Central VRF Inteligente",
+          "Gerador com Autonomia de 100% da Carga",
+          "Controle de Acesso com Reconhecimento Facial 3D",
+          "12 Vagas de Garagem com Manobrista"
+        ],
+        images: [
+          "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80",
+          "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=1200&q=80",
+          "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80"
+        ]
+      },
+      {
+        id: 11,
+        code: "ALG-111",
+        title: "Terreno Plano com Projeto Arquitetônico Aprovado",
+        neighborhood: "Cidade Jardim",
+        city: "São Paulo",
+        purpose: "Comprar",
+        type: "Terreno",
+        price: 6800000,
+        condo: 2800,
+        iptu: 1450,
+        area: 950,
+        bedrooms: 0,
+        suites: 0,
+        bathrooms: 0,
+        parking: 6,
+        tag: "Exclusivo",
+        tagType: "exclusive",
+        description: "Raríssima oportunidade em um dos bolsões mais protegidos e arborizados de Cidade Jardim. Terreno totalmente plano com 950m² de área privativa e testada frontal de 26 metros lineares. Inclui projeto arquitetônico contemporâneo completo já aprovado na Prefeitura e no condomínio, assinado por renomado escritório paulistano, prevendo residência de 850m² com 5 suítes, piscina com raia, solarium e subsolo para 6 carros.",
+        amenities: [
+          "Topografia 100% Plana e Limpa",
+          "Projeto Arquitetônico Aprovado na Prefeitura",
+          "Condomínio com Monitoramento e Guarita Armada 24h",
+          "Testada Frontal Imponente de 26 Metros",
+          "Fiação Elétrica e Cabeamento 100% Subterrâneos",
+          "Estudo Geotécnico e Topográfico Concluídos",
+          "Paisagismo Perimetral com Árvores Nativas Preservadas",
+          "A Poucos Minutos dos Melhores Clubes e Escolas"
+        ],
+        images: [
+          "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1200&q=80",
+          "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80",
+          "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80"
+        ]
+      }
+    ];
+
+    // --- HELPER COMPONENT: ÍCONES SVG PERSONALIZADOS EM VERDE-ESMERALDA ---
+    function Icon({ name, className = "w-5 h-5", ...props }) {
+      switch (name) {
+        case "bed":
+          return (
+            <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" {...props}>
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" d="M3 7v11m0-4h18m0-7v11M3 11h18M7 8a2 2 0 11-4 0 2 2 0 014 0z" />
+            </svg>
+          );
+        case "bath":
+          return (
+            <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" {...props}>
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" d="M4 12h16a1 1 0 011 1v2a6 6 0 01-6 6H9a6 6 0 01-6-6v-2a1 1 0 011-1zm2-5h3a2 2 0 012 2v3H4V9a2 2 0 012-2zm0 0V4" />
+            </svg>
+          );
+        case "car":
+          return (
+            <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" {...props}>
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" d="M5 13l1.5-4.5A2 2 0 018.4 7h7.2a2 2 0 011.9 1.5L19 13m-14 0v5a1 1 0 001 1h1a1 1 0 001-1v-1h8v1a1 1 0 001 1h1a1 1 0 001-1v-5m-14 0h14M7 16h.01M17 16h.01" />
+            </svg>
+          );
+        case "area":
+          return (
+            <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" {...props}>
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
+            </svg>
+          );
+        case "pin":
+          return (
+            <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" {...props}>
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+          );
+        case "heart":
+          return (
+            <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" {...props}>
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+            </svg>
+          );
+        case "heart-filled":
+          return (
+            <svg className={className} fill="currentColor" viewBox="0 0 24 24" {...props}>
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+            </svg>
+          );
+        case "search":
+          return (
+            <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" {...props}>
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          );
+        case "filter":
+          return (
+            <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" {...props}>
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+            </svg>
+          );
+        case "whatsapp":
+          return (
+            <svg className={className} fill="currentColor" viewBox="0 0 24 24" {...props}>
+              <path d="M12.031 2C6.516 2 2.023 6.494 2.023 12.012c0 1.93.551 3.738 1.504 5.275L2 22l4.875-1.488a9.98 9.98 0 005.156 1.5c5.516 0 10.008-4.492 10.008-10.012C22.039 6.494 17.547 2 12.031 2zm5.789 14.195c-.242.684-1.203 1.309-1.688 1.363-.484.055-.98.074-3.156-.789-2.223-.883-3.645-3.137-3.758-3.289-.113-.152-.898-1.195-.898-2.281 0-1.086.566-1.621.766-1.84.2-.219.438-.273.586-.273.148 0 .293.004.422.012.137.008.32-.055.5.383.188.457.641 1.57.699 1.684.059.113.098.246.02.398-.078.152-.117.246-.234.383-.117.137-.246.305-.352.41-.117.117-.238.246-.102.48.137.234.605.996 1.297 1.613.891.793 1.641 1.039 1.875 1.156.234.117.371.102.508-.059.137-.16.586-.684.742-.918.156-.234.313-.195.527-.117.215.078 1.367.645 1.602.762.234.117.391.176.45.273.058.098.058.566-.184 1.25z"/>
+            </svg>
+          );
+        case "check":
+          return (
+            <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" {...props}>
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.2" d="M5 13l4 4L19 7" />
+            </svg>
+          );
+        case "shield":
+          return (
+            <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" {...props}>
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+            </svg>
+          );
+        case "sparkles":
+          return (
+            <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" {...props}>
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.286L13 21l-2.286-6.857L5 12l5.714-2.286L13 3z" />
+            </svg>
+          );
+        case "device-mobile":
+          return (
+            <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" {...props}>
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+            </svg>
+          );
+        case "x":
+          return (
+            <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" {...props}>
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          );
+        case "chevron-down":
+          return (
+            <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" {...props}>
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          );
+        case "chevron-left":
+          return (
+            <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" {...props}>
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
+            </svg>
+          );
+        case "chevron-right":
+          return (
+            <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" {...props}>
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+            </svg>
+          );
+        case "menu":
+          return (
+            <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" {...props}>
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          );
+        case "calendar":
+          return (
+            <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" {...props}>
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+          );
+        case "share":
+          return (
+            <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" {...props}>
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+            </svg>
+          );
+        case "award":
+          return (
+            <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" {...props}>
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+            </svg>
+          );
+        case "clock":
+          return (
+            <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" {...props}>
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          );
+        default:
+          return null;
+      }
+    }
+
+    // Formatação de valores em Reais (BRL)
+    const formatCurrency = (val) => {
+      return new Intl.NumberFormat('pt-BR', {
+        style: 'currency',
+        currency: 'BRL',
+        maximumFractionDigits: 0
+      }).format(val);
+    };
+
+    // --- COMPONENTE PRINCIPAL ALLOGGI APP ---
+    function AlloggiApp() {
+      // Filtros de Estado
+      const [purpose, setPurpose] = useState('todos'); // 'todos', 'Comprar', 'Alugar'
+      const [propertyType, setPropertyType] = useState('todos');
+      const [location, setLocation] = useState('todos');
+      const [minPrice, setMinPrice] = useState('');
+      const [maxPrice, setMaxPrice] = useState('');
+      const [bedrooms, setBedrooms] = useState('qualquer');
+      const [parking, setParking] = useState('qualquer');
+      const [searchQuery, setSearchQuery] = useState('');
+      const [sortBy, setSortBy] = useState('relevance');
+      const [filterApplied, setFilterApplied] = useState(false);
+
+      // Estado de Favoritos (persistência local)
+      const [favorites, setFavorites] = useState(() => {
+        try {
+          const saved = localStorage.getItem('alloggi_favorites');
+          return saved ? JSON.parse(saved) : [1, 4];
+        } catch (e) {
+          return [1, 4];
+        }
+      });
+      const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
+
+      // Modal de Detalhes
+      const [selectedProperty, setSelectedProperty] = useState(null);
+      const [galleryIndex, setGalleryIndex] = useState(0);
+
+      // Modal de Anunciar Imóvel
+      const [isAnunciarOpen, setIsAnunciarOpen] = useState(false);
+      const [anunciarSuccess, setAnunciarSuccess] = useState(false);
+
+      // Agendamento de Visita no Modal
+      const [scheduleSubmitted, setScheduleSubmitted] = useState(false);
+      const [scheduleData, setScheduleData] = useState({
+        name: '',
+        email: '',
+        phone: '',
+        date: '',
+        period: 'Manhã (09h - 12h)',
+        notes: ''
+      });
+
+      // Menu Mobile & Toasts
+      const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+      const [toast, setToast] = useState(null);
+
+      // Newsletter
+      const [newsletterEmail, setNewsletterEmail] = useState('');
+      const [newsletterSuccess, setNewsletterSuccess] = useState(false);
+
+      // Sincronizar favoritos com localStorage
+      useEffect(() => {
+        try {
+          localStorage.setItem('alloggi_favorites', JSON.stringify(favorites));
+        } catch (e) {}
+      }, [favorites]);
+
+      // Fechar modais ao pressionar tecla Escape
+      useEffect(() => {
+        const handleKeyDown = (e) => {
+          if (e.key === 'Escape') {
+            if (selectedProperty) handleCloseDetails();
+            if (isAnunciarOpen) setIsAnunciarOpen(false);
+          }
+        };
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+      }, [selectedProperty, isAnunciarOpen]);
+
+      // Feedback em Toast temporário
+      const showToast = (message) => {
+        setToast(message);
+        setTimeout(() => setToast(null), 3500);
+      };
+
+      // Toggle favorito
+      const toggleFavorite = (e, id) => {
+        e && e.stopPropagation();
+        if (favorites.includes(id)) {
+          setFavorites(favorites.filter(item => item !== id));
+          showToast("Imóvel removido dos seus favoritos.");
+        } else {
+          setFavorites([...favorites, id]);
+          showToast("Imóvel adicionado à sua lista de favoritos!");
+        }
+      };
+
+      // Resetar todos os filtros
+      const handleResetFilters = () => {
+        setPurpose('todos');
+        setPropertyType('todos');
+        setLocation('todos');
+        setMinPrice('');
+        setMaxPrice('');
+        setBedrooms('qualquer');
+        setParking('qualquer');
+        setSearchQuery('');
+        setSortBy('relevance');
+        setShowFavoritesOnly(false);
+        setFilterApplied(false);
+        showToast("Filtros limpos com sucesso.");
+      };
+
+      // Filtragem reativa dinâmica dos imóveis
+      const filteredProperties = useMemo(() => {
+        return PROPERTIES_DATA.filter(property => {
+          // Filtro de Favoritos
+          if (showFavoritesOnly && !favorites.includes(property.id)) {
+            return false;
+          }
+
+          // Filtro de Finalidade (Comprar / Alugar)
+          if (purpose !== 'todos' && property.purpose.toLowerCase() !== purpose.toLowerCase()) {
+            return false;
+          }
+
+          // Filtro de Tipo de Imóvel
+          if (propertyType !== 'todos' && property.type.toLowerCase() !== propertyType.toLowerCase()) {
+            return false;
+          }
+
+          // Filtro de Localização / Bairro
+          if (location !== 'todos' && property.neighborhood.toLowerCase() !== location.toLowerCase()) {
+            return false;
+          }
+
+          // Filtro de Preço Mínimo
+          if (minPrice && Number(minPrice) > 0 && property.price < Number(minPrice)) {
+            return false;
+          }
+
+          // Filtro de Preço Máximo
+          if (maxPrice && Number(maxPrice) > 0 && property.price > Number(maxPrice)) {
+            return false;
+          }
+
+          // Filtro de Quartos
+          if (bedrooms !== 'qualquer') {
+            const minBedrooms = parseInt(bedrooms, 10);
+            if (property.bedrooms < minBedrooms) return false;
+          }
+
+          // Filtro de Vagas
+          if (parking !== 'qualquer') {
+            const minParking = parseInt(parking, 10);
+            if (property.parking < minParking) return false;
+          }
+
+          // Busca textual livre (título, bairro, código, descrição)
+          if (searchQuery.trim() !== '') {
+            const query = searchQuery.toLowerCase();
+            const matchTitle = property.title.toLowerCase().includes(query);
+            const matchBairro = property.neighborhood.toLowerCase().includes(query);
+            const matchCode = property.code.toLowerCase().includes(query);
+            const matchDesc = property.description.toLowerCase().includes(query);
+            if (!matchTitle && !matchBairro && !matchCode && !matchDesc) {
+              return false;
+            }
+          }
+
+          return true;
+        }).sort((a, b) => {
+          if (sortBy === 'price-asc') return a.price - b.price;
+          if (sortBy === 'price-desc') return b.price - a.price;
+          if (sortBy === 'area-desc') return b.area - a.area;
+          return 0; // Mais relevantes (ordem original de curadoria)
+        });
+      }, [purpose, propertyType, location, minPrice, maxPrice, bedrooms, parking, searchQuery, sortBy, showFavoritesOnly, favorites]);
+
+      // Abrir modal de detalhes
+      const handleOpenDetails = (property) => {
+        setSelectedProperty(property);
+        setGalleryIndex(0);
+        setScheduleSubmitted(false);
+        setScheduleData({
+          name: '',
+          email: '',
+          phone: '',
+          date: '',
+          period: 'Manhã (09h - 12h)',
+          notes: ''
+        });
+        document.body.style.overflow = 'hidden';
+      };
+
+      const handleCloseDetails = () => {
+        setSelectedProperty(null);
+        document.body.style.overflow = 'auto';
+      };
+
+      // Submissão do agendamento
+      const handleScheduleSubmit = (e) => {
+        e.preventDefault();
+        setScheduleSubmitted(true);
+        showToast("Solicitação de agendamento enviada! Nosso consultor entrará em contato.");
+      };
+
+      // Submissão de Anunciar Imóvel
+      const handleAnunciarSubmit = (e) => {
+        e.preventDefault();
+        setAnunciarSuccess(true);
+        setTimeout(() => {
+          setIsAnunciarOpen(false);
+          setAnunciarSuccess(false);
+          showToast("Imóvel cadastrado para avaliação da curadoria Alloggi!");
+        }, 2200);
+      };
+
+      // Compartilhar imóvel
+      const handleShare = (property) => {
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(window.location.href);
+          showToast(`Link de ${property.title} copiado para a área de transferência!`);
+        } else {
+          showToast("Link pronto para compartilhamento.");
+        }
+      };
+
+      return (
+        <div className="min-h-screen flex flex-col font-sans">
+          
+          {/* TOAST FLUTUANTE */}
+          {toast && (
+            <div className="fixed bottom-6 right-6 z-50 bg-forest text-white px-5 py-3.5 rounded-xl shadow-2xl flex items-center space-x-3 border border-sage/20 animate-fade-in">
+              <span className="w-2.5 h-2.5 rounded-full bg-emerald"></span>
+              <p className="text-sm font-medium">{toast}</p>
+            </div>
+          )}
+
+          {/* ======================================================== */}
+          {/* 1. CABEÇALHO (NAVBAR)                                     */}
+          {/* ======================================================== */}
+          <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-sm transition-all duration-200">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="flex items-center justify-between h-20">
+                
+                {/* Logo Tipográfico Elegante "Alloggi" */}
+                <a href="#" className="flex items-center space-x-3 group">
+                  <div className="w-10 h-10 rounded-xl bg-forest flex items-center justify-center text-sage font-serif font-bold text-2xl shadow-md transition-transform duration-300 group-hover:scale-105">
+                    A
+                  </div>
+                  <div>
+                    <span className="font-serif text-2xl sm:text-3xl font-bold tracking-tight text-forest block leading-none">
+                      Alloggi
+                    </span>
+                    <span className="text-[10px] tracking-[0.25em] uppercase font-semibold text-emerald-light block mt-0.5">
+                      Imóveis de Alto Padrão
+                    </span>
+                  </div>
+                </a>
+
+                {/* Links de Navegação Desktop */}
+                <nav className="hidden md:flex items-center space-x-8">
+                  <a href="#catalogo" onClick={() => { setPurpose('todos'); setShowFavoritesOnly(false); }} className="text-sm font-medium text-charcoal hover:text-emerald transition-colors">
+                    Início
+                  </a>
+                  <a href="#catalogo" onClick={() => { setPurpose('Comprar'); setShowFavoritesOnly(false); }} className="text-sm font-medium text-charcoal hover:text-emerald transition-colors">
+                    Comprar
+                  </a>
+                  <a href="#catalogo" onClick={() => { setPurpose('Alugar'); setShowFavoritesOnly(false); }} className="text-sm font-medium text-charcoal hover:text-emerald transition-colors">
+                    Alugar
+                  </a>
+                  <a href="#catalogo" onClick={() => { setPropertyType('Cobertura'); }} className="text-sm font-medium text-charcoal hover:text-emerald transition-colors">
+                    Lançamentos
+                  </a>
+                  <a href="#diferenciais" className="text-sm font-medium text-charcoal hover:text-emerald transition-colors">
+                    Sobre Nós
+                  </a>
+                  <a href="#contato" className="text-sm font-medium text-charcoal hover:text-emerald transition-colors">
+                    Contato
+                  </a>
+                </nav>
+
+                {/* Ações Navbar (Favoritos & Botão Anunciar Imóvel) */}
+                <div className="hidden lg:flex items-center space-x-4">
+                  {/* Botão de Favoritos Salvos */}
+                  <button 
+                    onClick={() => {
+                      setShowFavoritesOnly(!showFavoritesOnly);
+                      const el = document.getElementById('catalogo');
+                      if (el) el.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                    title="Ver imóveis favoritados"
+                    className={`p-2.5 rounded-xl border transition-all duration-200 flex items-center space-x-2 text-sm font-medium ${
+                      showFavoritesOnly 
+                        ? 'bg-sage border-emerald text-forest' 
+                        : 'border-gray-200 text-charcoal-muted hover:text-emerald hover:border-emerald'
+                    }`}
+                  >
+                    <Icon name={favorites.length > 0 ? "heart-filled" : "heart"} className={`w-5 h-5 ${favorites.length > 0 ? 'text-emerald' : 'text-charcoal-muted'}`} />
+                    <span>Favoritos</span>
+                    <span className="w-5 h-5 rounded-full bg-forest text-white text-xs flex items-center justify-center font-bold">
+                      {favorites.length}
+                    </span>
+                  </button>
+
+                  {/* Botão de Destaque "Anunciar Imóvel" */}
+                  <button 
+                    onClick={() => setIsAnunciarOpen(true)}
+                    className="bg-forest hover:bg-forest-light text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition-all duration-200 shadow-sm hover:shadow-md flex items-center space-x-2 active:scale-95"
+                  >
+                    <span>Anunciar Imóvel</span>
+                  </button>
+                </div>
+
+                {/* Botão Menu Hambúrguer Mobile */}
+                <div className="flex items-center space-x-2 md:hidden">
+                  <button 
+                    onClick={() => {
+                      setShowFavoritesOnly(!showFavoritesOnly);
+                      const el = document.getElementById('catalogo');
+                      if (el) el.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                    className="p-2 text-charcoal"
+                    aria-label="Favoritos"
+                  >
+                    <Icon name={favorites.length > 0 ? "heart-filled" : "heart"} className="w-6 h-6 text-emerald" />
+                  </button>
+                  <button 
+                    onClick={() => setMobileMenuOpen(!mobileMenuOpen)} 
+                    className="p-2 text-charcoal hover:text-forest focus:outline-none"
+                    aria-label="Abrir Menu"
+                  >
+                    <Icon name={mobileMenuOpen ? "x" : "menu"} className="w-7 h-7" />
+                  </button>
+                </div>
+
+              </div>
+            </div>
+
+            {/* Menu Dropdown Mobile */}
+            {mobileMenuOpen && (
+              <div className="md:hidden bg-white border-b border-gray-200 px-5 pt-3 pb-6 space-y-4 shadow-lg animate-fade-in">
+                <div className="flex flex-col space-y-3 pt-2">
+                  <a 
+                    href="#catalogo" 
+                    onClick={() => { setPurpose('todos'); setShowFavoritesOnly(false); setMobileMenuOpen(false); }} 
+                    className="text-base font-medium text-charcoal hover:text-emerald py-1"
+                  >
+                    Início
+                  </a>
+                  <a 
+                    href="#catalogo" 
+                    onClick={() => { setPurpose('Comprar'); setShowFavoritesOnly(false); setMobileMenuOpen(false); }} 
+                    className="text-base font-medium text-charcoal hover:text-emerald py-1"
+                  >
+                    Comprar
+                  </a>
+                  <a 
+                    href="#catalogo" 
+                    onClick={() => { setPurpose('Alugar'); setShowFavoritesOnly(false); setMobileMenuOpen(false); }} 
+                    className="text-base font-medium text-charcoal hover:text-emerald py-1"
+                  >
+                    Alugar
+                  </a>
+                  <a 
+                    href="#catalogo" 
+                    onClick={() => { setPropertyType('Cobertura'); setMobileMenuOpen(false); }} 
+                    className="text-base font-medium text-charcoal hover:text-emerald py-1"
+                  >
+                    Lançamentos
+                  </a>
+                  <a 
+                    href="#diferenciais" 
+                    onClick={() => setMobileMenuOpen(false)} 
+                    className="text-base font-medium text-charcoal hover:text-emerald py-1"
+                  >
+                    Sobre Nós
+                  </a>
+                  <a 
+                    href="#contato" 
+                    onClick={() => setMobileMenuOpen(false)} 
+                    className="text-base font-medium text-charcoal hover:text-emerald py-1"
+                  >
+                    Contato
+                  </a>
+                </div>
+
+                <div className="pt-3 border-t border-gray-100 flex flex-col space-y-2">
+                  <button 
+                    onClick={() => {
+                      setShowFavoritesOnly(!showFavoritesOnly);
+                      setMobileMenuOpen(false);
+                      const el = document.getElementById('catalogo');
+                      if (el) el.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                    className="w-full text-left py-2.5 px-3 rounded-lg bg-sage/40 text-forest font-medium flex items-center justify-between"
+                  >
+                    <span className="flex items-center space-x-2">
+                      <Icon name="heart-filled" className="w-4 h-4 text-emerald" />
+                      <span>Ver Meus Favoritos</span>
+                    </span>
+                    <span className="font-bold bg-forest text-white text-xs px-2 py-0.5 rounded-full">{favorites.length}</span>
+                  </button>
+
+                  <button 
+                    onClick={() => { setIsAnunciarOpen(true); setMobileMenuOpen(false); }}
+                    className="w-full bg-forest text-white text-center font-semibold py-3 rounded-xl shadow-sm hover:bg-forest-light"
+                  >
+                    Anunciar Imóvel
+                  </button>
+                </div>
+              </div>
+            )}
+          </header>
+
+          {/* ======================================================== */}
+          {/* 2. HERO SECTION & BARRA DE FILTROS AVANÇADOS              */}
+          {/* ======================================================== */}
+          <section className="relative pt-12 pb-24 md:pt-20 md:pb-36 bg-forest overflow-hidden">
+            {/* Imagem de Fundo de Alta Resolução Arquitetônica com Vegetação */}
+            <div className="absolute inset-0 z-0">
+              <img 
+                src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2000&q=85" 
+                alt="Arquitetura de Alto Padrão Alloggi" 
+                className="w-full h-full object-cover object-center transform scale-105 duration-1000"
+              />
+              {/* Sobreposição esverdeada sutil e elegante conforme especificado */}
+              <div className="absolute inset-0 bg-gradient-to-r from-forest/95 via-forest/85 to-forest-dark/90 backdrop-blur-[1px]"></div>
+              {/* Padrão geométrico suave de fundo */}
+              <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#D8F3DC_1px,transparent_1px)] [background-size:24px_24px]"></div>
+            </div>
+
+            {/* Conteúdo Hero */}
+            <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-10 md:mb-14">
+              <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-sage/20 border border-sage/30 text-sage text-xs font-semibold uppercase tracking-wider mb-6 backdrop-blur-sm animate-fade-in">
+                <Icon name="sparkles" className="w-3.5 h-3.5 text-sage" />
+                <span>Imobiliária Boutique de São Paulo</span>
+              </div>
+              <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl text-white font-bold tracking-tight max-w-4xl mx-auto leading-tight drop-shadow-sm">
+                Encontre o espaço que combina com a sua história
+              </h1>
+              <p className="mt-5 text-base sm:text-lg text-sage/90 max-w-2xl mx-auto font-normal leading-relaxed">
+                Curadoria seleta dos endereços mais nobres e desejados de São Paulo: Jardins, Itaim Bibi, Pinheiros, Vila Nova Conceição e Moema.
+              </p>
+            </div>
+
+            {/* BARRA DE FILTROS AVANÇADA (Card Branco Elevado) */}
+            <div className="relative z-20 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="bg-white rounded-3xl shadow-luxury border border-white/60 p-5 sm:p-7 backdrop-blur-xl">
+                
+                {/* Seletor em Abas de Finalidade (Comprar / Alugar / Todos) */}
+                <div className="flex items-center justify-between border-b border-gray-100 pb-5 mb-5 flex-wrap gap-3">
+                  <div className="flex bg-offwhite p-1 rounded-2xl border border-gray-200">
+                    <button
+                      onClick={() => setPurpose('todos')}
+                      className={`px-5 py-2 rounded-xl text-sm font-semibold transition-all duration-200 ${
+                        purpose === 'todos'
+                          ? 'bg-forest text-white shadow-sm'
+                          : 'text-charcoal-muted hover:text-forest'
+                      }`}
+                    >
+                      Todos
+                    </button>
+                    <button
+                      onClick={() => setPurpose('Comprar')}
+                      className={`px-5 py-2 rounded-xl text-sm font-semibold transition-all duration-200 ${
+                        purpose === 'Comprar'
+                          ? 'bg-forest text-white shadow-sm'
+                          : 'text-charcoal-muted hover:text-forest'
+                      }`}
+                    >
+                      Comprar
+                    </button>
+                    <button
+                      onClick={() => setPurpose('Alugar')}
+                      className={`px-5 py-2 rounded-xl text-sm font-semibold transition-all duration-200 ${
+                        purpose === 'Alugar'
+                          ? 'bg-forest text-white shadow-sm'
+                          : 'text-charcoal-muted hover:text-forest'
+                      }`}
+                    >
+                      Alugar
+                    </button>
+                  </div>
+
+                  {/* Campo de Busca Rápida por Texto */}
+                  <div className="relative flex-1 max-w-md min-w-[240px]">
+                    <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+                      <Icon name="search" className="w-4 h-4 text-emerald" />
+                    </div>
+                    <input 
+                      type="text"
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      placeholder="Buscar por palavra-chave, condomínio ou código..."
+                      className="w-full pl-10 pr-4 py-2 bg-offwhite rounded-xl text-xs sm:text-sm border border-gray-200 focus:outline-none focus:ring-2 focus:ring-emerald focus:bg-white transition-all placeholder:text-gray-400"
+                    />
+                    {searchQuery && (
+                      <button 
+                        onClick={() => setSearchQuery('')}
+                        className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-charcoal"
+                      >
+                        <Icon name="x" className="w-4 h-4" />
+                      </button>
+                    )}
+                  </div>
+                </div>
+
+                {/* Grade de Filtros Funcionais */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
+                  
+                  {/* Filtro: Tipo de Imóvel */}
+                  <div>
+                    <label className="block text-xs font-semibold text-charcoal uppercase tracking-wider mb-1.5">
+                      Tipo de Imóvel
+                    </label>
+                    <div className="relative">
+                      <select
+                        value={propertyType}
+                        onChange={(e) => setPropertyType(e.target.value)}
+                        className="w-full appearance-none bg-offwhite hover:bg-gray-100/70 border border-gray-200 rounded-xl px-4 py-3 text-sm text-charcoal font-medium focus:outline-none focus:ring-2 focus:ring-emerald focus:bg-white transition-all cursor-pointer"
+                      >
+                        <option value="todos">Todos os Tipos</option>
+                        <option value="Apartamento">Apartamento</option>
+                        <option value="Casa">Casa</option>
+                        <option value="Cobertura">Cobertura</option>
+                        <option value="Terreno">Terreno</option>
+                        <option value="Comercial">Comercial</option>
+                      </select>
+                      <div className="absolute inset-y-0 right-0 pr-3.5 flex items-center pointer-events-none text-emerald">
+                        <Icon name="chevron-down" className="w-4 h-4" />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Filtro: Localização */}
+                  <div>
+                    <label className="block text-xs font-semibold text-charcoal uppercase tracking-wider mb-1.5">
+                      Localização (Bairro)
+                    </label>
+                    <div className="relative">
+                      <select
+                        value={location}
+                        onChange={(e) => setLocation(e.target.value)}
+                        className="w-full appearance-none bg-offwhite hover:bg-gray-100/70 border border-gray-200 rounded-xl px-4 py-3 text-sm text-charcoal font-medium focus:outline-none focus:ring-2 focus:ring-emerald focus:bg-white transition-all cursor-pointer"
+                      >
+                        <option value="todos">Todos os Bairros Nobres</option>
+                        <option value="Jardins">Jardins / Jd. Europa</option>
+                        <option value="Itaim Bibi">Itaim Bibi</option>
+                        <option value="Pinheiros">Pinheiros</option>
+                        <option value="Vila Mariana">Vila Mariana</option>
+                        <option value="Moema">Moema</option>
+                        <option value="Vila Nova Conceição">Vila Nova Conceição</option>
+                        <option value="Alto de Pinheiros">Alto de Pinheiros</option>
+                        <option value="Higienópolis">Higienópolis</option>
+                        <option value="Cidade Jardim">Cidade Jardim</option>
+                      </select>
+                      <div className="absolute inset-y-0 right-0 pr-3.5 flex items-center pointer-events-none text-emerald">
+                        <Icon name="pin" className="w-4 h-4" />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Filtro: Faixa de Preço */}
+                  <div className="grid grid-cols-2 gap-2">
+                    <div>
+                      <label className="block text-xs font-semibold text-charcoal uppercase tracking-wider mb-1.5">
+                        Preço Mín (R$)
+                      </label>
+                      <input
+                        type="number"
+                        list="min-prices-datalist"
+                        value={minPrice}
+                        onChange={(e) => setMinPrice(e.target.value)}
+                        placeholder="Mínimo R$"
+                        className="w-full bg-offwhite border border-gray-200 rounded-xl px-3 py-3 text-xs sm:text-sm text-charcoal font-medium focus:outline-none focus:ring-2 focus:ring-emerald focus:bg-white transition-all placeholder:text-gray-400"
+                      />
+                      <datalist id="min-prices-datalist">
+                        <option value="5000">R$ 5.000 (Aluguel)</option>
+                        <option value="15000">R$ 15.000 (Aluguel)</option>
+                        <option value="1000000">R$ 1.000.000</option>
+                        <option value="3000000">R$ 3.000.000</option>
+                        <option value="5000000">R$ 5.000.000</option>
+                        <option value="8000000">R$ 8.000.000</option>
+                      </datalist>
+                    </div>
+                    <div>
+                      <label className="block text-xs font-semibold text-charcoal uppercase tracking-wider mb-1.5">
+                        Preço Máx (R$)
+                      </label>
+                      <input
+                        type="number"
+                        list="max-prices-datalist"
+                        value={maxPrice}
+                        onChange={(e) => setMaxPrice(e.target.value)}
+                        placeholder="Máximo R$"
+                        className="w-full bg-offwhite border border-gray-200 rounded-xl px-3 py-3 text-xs sm:text-sm text-charcoal font-medium focus:outline-none focus:ring-2 focus:ring-emerald focus:bg-white transition-all placeholder:text-gray-400"
+                      />
+                      <datalist id="max-prices-datalist">
+                        <option value="15000">R$ 15.000 (Aluguel)</option>
+                        <option value="30000">R$ 30.000 (Aluguel)</option>
+                        <option value="4000000">R$ 4.000.000</option>
+                        <option value="7000000">R$ 7.000.000</option>
+                        <option value="10000000">R$ 10.000.000</option>
+                        <option value="15000000">R$ 15.000.000+</option>
+                      </datalist>
+                    </div>
+                  </div>
+
+                </div>
+
+                {/* Linha 2: Quartos & Vagas */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
+                  
+                  {/* Quartos: Qualquer, 1+, 2+, 3+, 4+ */}
+                  <div>
+                    <label className="block text-xs font-semibold text-charcoal uppercase tracking-wider mb-1.5">
+                      Quartos: <span className="font-bold text-forest capitalize">{bedrooms === 'qualquer' ? 'Qualquer' : `${bedrooms} quartos`}</span>
+                    </label>
+                    <div className="flex bg-offwhite p-1 rounded-xl border border-gray-200 gap-1">
+                      {['qualquer', '1+', '2+', '3+', '4+'].map((opt) => (
+                        <button
+                          key={opt}
+                          type="button"
+                          onClick={() => setBedrooms(opt)}
+                          className={`flex-1 py-2 text-xs font-semibold rounded-lg transition-all ${
+                            bedrooms === opt
+                              ? 'bg-forest text-white shadow-sm'
+                              : 'text-charcoal-muted hover:text-forest hover:bg-gray-200/50'
+                          }`}
+                        >
+                          {opt === 'qualquer' ? 'Qualquer' : opt}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Vagas de Garagem: Qualquer, 1+, 2+, 3+ */}
+                  <div>
+                    <label className="block text-xs font-semibold text-charcoal uppercase tracking-wider mb-1.5">
+                      Vagas de Garagem: <span className="font-bold text-forest capitalize">{parking === 'qualquer' ? 'Qualquer' : `${parking} vagas`}</span>
+                    </label>
+                    <div className="flex bg-offwhite p-1 rounded-xl border border-gray-200 gap-1">
+                      {['qualquer', '1+', '2+', '3+'].map((opt) => (
+                        <button
+                          key={opt}
+                          type="button"
+                          onClick={() => setParking(opt)}
+                          className={`flex-1 py-2 text-xs font-semibold rounded-lg transition-all ${
+                            parking === opt
+                              ? 'bg-forest text-white shadow-sm'
+                              : 'text-charcoal-muted hover:text-forest hover:bg-gray-200/50'
+                          }`}
+                        >
+                          {opt === 'qualquer' ? 'Qualquer' : opt}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                </div>
+
+                {/* Barra de Ações: Buscar Imóveis e Limpar Filtros */}
+                <div className="mt-6 pt-5 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+                  <div className="text-xs text-charcoal-muted flex items-center space-x-2">
+                    <span className="w-2 h-2 rounded-full bg-emerald"></span>
+                    <span>Atualização contínua com unidades exclusivas e off-market</span>
+                  </div>
+
+                  <div className="flex items-center space-x-3 w-full sm:w-auto">
+                    {/* Botão Secundário: Limpar Filtros */}
+                    <button
+                      onClick={handleResetFilters}
+                      className="px-4 py-3 text-sm font-semibold text-emerald hover:text-emerald-hover hover:bg-sage/30 rounded-xl transition-all duration-200 flex items-center justify-center space-x-1.5 border border-transparent hover:border-sage"
+                    >
+                      <span>Limpar Filtros</span>
+                    </button>
+
+                    {/* Botão Principal: Buscar Imóveis */}
+                    <button
+                      onClick={() => {
+                        setFilterApplied(true);
+                        const el = document.getElementById('catalogo');
+                        if (el) el.scrollIntoView({ behavior: 'smooth' });
+                      }}
+                      className="flex-1 sm:flex-initial bg-forest hover:bg-forest-light text-white text-sm font-semibold px-7 py-3 rounded-xl transition-all duration-200 shadow-md hover:shadow-lg flex items-center justify-center space-x-2 active:scale-95"
+                    >
+                      <Icon name="search" className="w-4 h-4" />
+                      <span>Buscar Imóveis</span>
+                    </button>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </section>
+
+          {/* ======================================================== */}
+          {/* 3. LISTAGEM DE IMÓVEIS (CATÁLOGO DINÂMICO)               */}
+          {/* ======================================================== */}
+          <main id="catalogo" className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 w-full">
+            
+            {/* Cabeçalho da Listagem: Contador e Ordenação */}
+            <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 pb-4 border-b border-gray-200/80 gap-4">
+              <div>
+                <div className="flex items-center space-x-2 text-xs font-semibold uppercase tracking-wider text-emerald mb-1">
+                  <Icon name="sparkles" className="w-4 h-4" />
+                  <span>Curadoria Exclusiva Alloggi</span>
+                </div>
+                <h2 className="font-serif text-2xl sm:text-3xl text-forest font-bold tracking-tight">
+                  {showFavoritesOnly ? "Seus Imóveis Favoritados" : "Portfólio de Imóveis Selecionados"}
+                </h2>
+                <p className="text-sm text-charcoal-muted mt-1">
+                  Exibindo <strong className="text-forest font-bold">{filteredProperties.length}</strong> {filteredProperties.length === 1 ? 'imóvel encontrado' : 'imóveis encontrados'}
+                  {purpose !== 'todos' && ` para ${purpose.toLowerCase()}`}
+                  {location !== 'todos' && ` em ${location}`}
+                  {propertyType !== 'todos' && ` do tipo ${propertyType.toLowerCase()}`}
+                </p>
+              </div>
+
+              {/* Ordenação e Filtro Rápido de Favoritos */}
+              <div className="flex items-center space-x-3">
+                <button
+                  onClick={() => setShowFavoritesOnly(!showFavoritesOnly)}
+                  className={`px-3.5 py-2 rounded-xl text-xs sm:text-sm font-medium border transition-all flex items-center space-x-1.5 ${
+                    showFavoritesOnly 
+                      ? 'bg-sage border-emerald text-forest' 
+                      : 'bg-white border-gray-200 text-charcoal-muted hover:border-emerald'
+                  }`}
+                >
+                  <Icon name={showFavoritesOnly ? "heart-filled" : "heart"} className="w-4 h-4 text-emerald" />
+                  <span>Favoritos ({favorites.length})</span>
+                </button>
+
+                <div className="relative">
+                  <select
+                    value={sortBy}
+                    onChange={(e) => setSortBy(e.target.value)}
+                    className="appearance-none bg-white border border-gray-200 rounded-xl px-4 py-2 pr-9 text-xs sm:text-sm font-medium text-charcoal focus:outline-none focus:ring-2 focus:ring-emerald cursor-pointer shadow-sm"
+                  >
+                    <option value="relevance">Mais relevantes</option>
+                    <option value="price-asc">Menor preço</option>
+                    <option value="price-desc">Maior preço</option>
+                    <option value="area-desc">Maior metragem</option>
+                  </select>
+                  <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-emerald">
+                    <Icon name="chevron-down" className="w-3.5 h-3.5" />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* CASO NENHUM IMÓVEL CORRESPONDA AOS FILTROS (Empty State) */}
+            {filteredProperties.length === 0 ? (
+              <div className="bg-white rounded-3xl p-12 text-center max-w-xl mx-auto shadow-sm border border-gray-200 my-12 animate-fade-in">
+                <div className="w-16 h-16 rounded-2xl bg-sage/60 text-emerald flex items-center justify-center mx-auto mb-4">
+                  <Icon name="filter" className="w-8 h-8" />
+                </div>
+                <h3 className="font-serif text-2xl font-bold text-forest mb-2">
+                  Nenhum imóvel encontrado
+                </h3>
+                <p className="text-sm text-charcoal-muted leading-relaxed mb-6">
+                  Não encontramos unidades que correspondam exatamente a todos os critérios selecionados no momento. Tente relaxar os filtros ou buscar por outro bairro.
+                </p>
+                <button
+                  onClick={handleResetFilters}
+                  className="bg-forest hover:bg-forest-light text-white text-sm font-semibold px-6 py-3 rounded-xl transition-all shadow-md active:scale-95"
+                >
+                  Limpar todos os filtros
+                </button>
+              </div>
+            ) : (
+              /* GRADE DOS CARDS DE IMÓVEIS */
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {filteredProperties.map((property) => {
+                  const isFavorited = favorites.includes(property.id);
+
+                  return (
+                    <article 
+                      key={property.id} 
+                      className="group bg-white rounded-2xl overflow-hidden border border-gray-200/90 shadow-card hover:shadow-luxury-hover hover:-translate-y-1.5 transition-all duration-300 flex flex-col"
+                    >
+                      {/* Imagem de Capa com Tag e Botão Favoritar */}
+                      <div className="relative aspect-[16/10] overflow-hidden bg-gray-100 cursor-pointer" onClick={() => handleOpenDetails(property)}>
+                        <img 
+                          src={property.images[0]} 
+                          alt={property.title}
+                          loading="lazy"
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20"></div>
+
+                        {/* Tag no canto superior esquerdo em Verde-Sálvia (#D8F3DC) com texto Verde-Floresta (#1B4332) */}
+                        <div className="absolute top-3.5 left-3.5 z-10">
+                          <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-sage text-forest shadow-sm backdrop-blur-md">
+                            {property.tag}
+                          </span>
+                        </div>
+
+                        {/* Botão de Favoritar (Coração) */}
+                        <button
+                          onClick={(e) => toggleFavorite(e, property.id)}
+                          aria-label={isFavorited ? "Remover dos favoritos" : "Salvar nos favoritos"}
+                          className={`absolute top-3.5 right-3.5 z-10 w-9 h-9 rounded-full flex items-center justify-center transition-all duration-200 shadow-md ${
+                            isFavorited 
+                              ? 'bg-white text-emerald scale-110' 
+                              : 'bg-white/80 hover:bg-white text-charcoal hover:text-emerald backdrop-blur-sm'
+                          }`}
+                        >
+                          <Icon name={isFavorited ? "heart-filled" : "heart"} className={`w-5 h-5 ${isFavorited ? 'text-emerald' : 'text-charcoal'}`} />
+                        </button>
+
+                        {/* Código de Referência e Tipo no rodapé da imagem */}
+                        <div className="absolute bottom-3 left-3.5 right-3.5 flex justify-between items-center text-white text-xs font-medium">
+                          <span className="bg-black/40 backdrop-blur-md px-2 py-0.5 rounded-md text-[11px]">
+                            {property.code}
+                          </span>
+                          <span className="bg-forest/80 backdrop-blur-md px-2 py-0.5 rounded-md text-[11px] font-semibold text-sage">
+                            {property.type}
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Corpo do Card */}
+                      <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                          {/* Localização com Ícone Minimalista */}
+                          <div className="flex items-center space-x-1.5 text-xs font-semibold text-emerald mb-2">
+                            <Icon name="pin" className="w-3.5 h-3.5 text-emerald" />
+                            <span>{property.neighborhood}, {property.city}</span>
+                          </div>
+
+                          {/* Título do Imóvel */}
+                          <h3 
+                            onClick={() => handleOpenDetails(property)}
+                            className="font-serif text-lg font-bold text-forest leading-snug line-clamp-2 hover:text-emerald transition-colors cursor-pointer mb-3"
+                          >
+                            {property.title}
+                          </h3>
+
+                          {/* Preço em Destaque em Verde-Floresta (#1B4332) */}
+                          <div className="mb-4">
+                            <div className="flex items-baseline space-x-1.5">
+                              <span className="text-xl sm:text-2xl font-extrabold text-forest tracking-tight">
+                                {formatCurrency(property.price)}
+                              </span>
+                              {property.purpose === 'Alugar' && (
+                                <span className="text-xs font-semibold text-charcoal-subtle">/mês</span>
+                              )}
+                            </div>
+                            <div className="text-xs text-charcoal-muted mt-0.5">
+                              Condomínio: {property.condo > 0 ? formatCurrency(property.condo) : 'Incluso'} • IPTU: {formatCurrency(property.iptu)}/mês
+                            </div>
+                          </div>
+                        </div>
+
+                        <div>
+                          {/* Especificações Minimalistas com Ícones Verde-Esmeralda (#2D6A4F) */}
+                          <div className="grid grid-cols-4 gap-2 py-3.5 my-3 border-y border-gray-100 text-charcoal">
+                            
+                            <div className="flex flex-col items-center justify-center text-center">
+                              <div className="text-emerald mb-1">
+                                <Icon name="area" className="w-4 h-4" />
+                              </div>
+                              <span className="text-xs font-bold text-forest">{property.area} m²</span>
+                              <span className="text-[10px] text-charcoal-subtle uppercase">Área</span>
+                            </div>
+
+                            <div className="flex flex-col items-center justify-center text-center border-l border-gray-100">
+                              <div className="text-emerald mb-1">
+                                <Icon name="bed" className="w-4 h-4" />
+                              </div>
+                              <span className="text-xs font-bold text-forest">{property.bedrooms > 0 ? property.bedrooms : '—'}</span>
+                              <span className="text-[10px] text-charcoal-subtle uppercase">Quartos</span>
+                            </div>
+
+                            <div className="flex flex-col items-center justify-center text-center border-l border-gray-100">
+                              <div className="text-emerald mb-1">
+                                <Icon name="bath" className="w-4 h-4" />
+                              </div>
+                              <span className="text-xs font-bold text-forest">{property.bathrooms > 0 ? property.bathrooms : '—'}</span>
+                              <span className="text-[10px] text-charcoal-subtle uppercase">Banhos</span>
+                            </div>
+
+                            <div className="flex flex-col items-center justify-center text-center border-l border-gray-100">
+                              <div className="text-emerald mb-1">
+                                <Icon name="car" className="w-4 h-4" />
+                              </div>
+                              <span className="text-xs font-bold text-forest">{property.parking}</span>
+                              <span className="text-[10px] text-charcoal-subtle uppercase">Vagas</span>
+                            </div>
+
+                          </div>
+
+                          {/* Botão Ver Detalhes */}
+                          <div className="pt-2 flex items-center space-x-2">
+                            <button
+                              onClick={() => handleOpenDetails(property)}
+                              className="flex-1 bg-offwhite hover:bg-forest hover:text-white text-forest text-xs sm:text-sm font-semibold py-2.5 rounded-xl border border-gray-200 hover:border-forest transition-all duration-200 flex items-center justify-center space-x-1.5 group/btn"
+                            >
+                              <span>Ver Detalhes</span>
+                              <Icon name="chevron-right" className="w-4 h-4 text-emerald group-hover/btn:text-white transition-colors" />
+                            </button>
+
+                            <button
+                              onClick={() => handleShare(property)}
+                              title="Compartilhar imóvel"
+                              className="p-2.5 rounded-xl border border-gray-200 text-charcoal-muted hover:text-forest hover:bg-offwhite transition-colors"
+                            >
+                              <Icon name="share" className="w-4 h-4" />
+                            </button>
+                          </div>
+                        </div>
+
+                      </div>
+                    </article>
+                  );
+                })}
+              </div>
+            )}
+          </main>
+
+          {/* ======================================================== */}
+          {/* 4. SEÇÕES COMPLEMENTARES: POR QUE ESCOLHER A ALLOGGI     */}
+          {/* ======================================================== */}
+          <section id="diferenciais" className="bg-white py-20 border-t border-gray-200/80">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              
+              <div className="text-center max-w-3xl mx-auto mb-16">
+                <span className="inline-block text-xs font-bold uppercase tracking-widest text-emerald mb-2">
+                  Excelência Imobiliária
+                </span>
+                <h2 className="font-serif text-3xl sm:text-4xl text-forest font-bold tracking-tight">
+                  Por que escolher a Alloggi
+                </h2>
+                <p className="mt-3 text-base text-charcoal-muted">
+                  Redefinimos a intermediação de imóveis de luxo com discrição, inteligência de mercado e atendimento altamente consultivo.
+                </p>
+              </div>
+
+              {/* Grid dos 4 Pilares Alloggi com Ícones em Verde-Esmeralda */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                
+                {/* Pilar 1: Curadoria Rigorosa */}
+                <div className="p-8 rounded-2xl bg-offwhite border border-gray-100 hover:border-emerald/30 transition-all duration-300 hover:shadow-luxury group">
+                  <div className="w-14 h-14 rounded-2xl bg-sage flex items-center justify-center text-emerald mb-6 group-hover:scale-110 transition-transform">
+                    <Icon name="sparkles" className="w-7 h-7 text-emerald" />
+                  </div>
+                  <h3 className="font-serif text-xl font-bold text-forest mb-2.5">
+                    Curadoria Exclusiva
+                  </h3>
+                  <p className="text-sm text-charcoal-muted leading-relaxed">
+                    Avaliamos arquitetura, localização, luminosidade e potencial de valorização. Apenas unidades de excelência ingressam em nosso portfólio.
+                  </p>
+                </div>
+
+                {/* Pilar 2: Atendimento Consultivo */}
+                <div className="p-8 rounded-2xl bg-offwhite border border-gray-100 hover:border-emerald/30 transition-all duration-300 hover:shadow-luxury group">
+                  <div className="w-14 h-14 rounded-2xl bg-sage flex items-center justify-center text-emerald mb-6 group-hover:scale-110 transition-transform">
+                    <Icon name="award" className="w-7 h-7 text-emerald" />
+                  </div>
+                  <h3 className="font-serif text-xl font-bold text-forest mb-2.5">
+                    Atendimento Consultivo
+                  </h3>
+                  <p className="text-sm text-charcoal-muted leading-relaxed">
+                    Consultores seniores dedicados a compreender seu momento de vida, interesses patrimoniais e rotina familiar com total sigilo.
+                  </p>
+                </div>
+
+                {/* Pilar 3: Processo 100% Digital */}
+                <div className="p-8 rounded-2xl bg-offwhite border border-gray-100 hover:border-emerald/30 transition-all duration-300 hover:shadow-luxury group">
+                  <div className="w-14 h-14 rounded-2xl bg-sage flex items-center justify-center text-emerald mb-6 group-hover:scale-110 transition-transform">
+                    <Icon name="device-mobile" className="w-7 h-7 text-emerald" />
+                  </div>
+                  <h3 className="font-serif text-xl font-bold text-forest mb-2.5">
+                    Processo Digital & Ágil
+                  </h3>
+                  <p className="text-sm text-charcoal-muted leading-relaxed">
+                    Da visita virtual com tour 3D à assinatura eletrônica avançada de contratos. Uma experiência fluida, sem burocracia ou deslocamentos desnecessários.
+                  </p>
+                </div>
+
+                {/* Pilar 4: Segurança Jurídica */}
+                <div className="p-8 rounded-2xl bg-offwhite border border-gray-100 hover:border-emerald/30 transition-all duration-300 hover:shadow-luxury group">
+                  <div className="w-14 h-14 rounded-2xl bg-sage flex items-center justify-center text-emerald mb-6 group-hover:scale-110 transition-transform">
+                    <Icon name="shield" className="w-7 h-7 text-emerald" />
+                  </div>
+                  <h3 className="font-serif text-xl font-bold text-forest mb-2.5">
+                    Segurança Jurídica Total
+                  </h3>
+                  <p className="text-sm text-charcoal-muted leading-relaxed">
+                    Due diligence documental prévia rigorosa realizada por nosso corpo jurídico especializado em direito imobiliário de alto patrimônio.
+                  </p>
+                </div>
+
+              </div>
+
+              {/* Indicadores de Excelência Alloggi */}
+              <div className="mt-16 bg-forest rounded-3xl p-8 sm:p-12 text-white">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-y md:divide-y-0 md:divide-x divide-emerald/30">
+                  <div className="pt-4 md:pt-0">
+                    <div className="font-serif text-3xl sm:text-4xl font-extrabold text-sage mb-1">
+                      +R$ 1.8 Bi
+                    </div>
+                    <div className="text-xs sm:text-sm text-white/80 font-medium">
+                      Em patrimônio intermediado
+                    </div>
+                  </div>
+                  <div className="pt-4 md:pt-0">
+                    <div className="font-serif text-3xl sm:text-4xl font-extrabold text-sage mb-1">
+                      98.4%
+                    </div>
+                    <div className="text-xs sm:text-sm text-white/80 font-medium">
+                      Índice de satisfação dos clientes
+                    </div>
+                  </div>
+                  <div className="pt-4 md:pt-0">
+                    <div className="font-serif text-3xl sm:text-4xl font-extrabold text-sage mb-1">
+                      15 Anos
+                    </div>
+                    <div className="text-xs sm:text-sm text-white/80 font-medium">
+                      De excelência em São Paulo
+                    </div>
+                  </div>
+                  <div className="pt-4 md:pt-0">
+                    <div className="font-serif text-3xl sm:text-4xl font-extrabold text-sage mb-1">
+                      48 Horas
+                    </div>
+                    <div className="text-xs sm:text-sm text-white/80 font-medium">
+                      Tempo médio de resposta qualificada
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </section>
+
+          {/* ======================================================== */}
+          {/* MODAL DE DETALHES COMPLETOS DO IMÓVEL                    */}
+          {/* ======================================================== */}
+          {selectedProperty && (
+            <div className="fixed inset-0 z-50 overflow-y-auto bg-black/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 animate-fade-in">
+              <div 
+                className="bg-white rounded-3xl max-w-4xl w-full max-h-[92vh] overflow-y-auto shadow-2xl border border-gray-100 animate-modal relative text-charcoal"
+                onClick={(e) => e.stopPropagation()}
+              >
+                
+                {/* Botão de Fechar Modal */}
+                <button
+                  onClick={handleCloseDetails}
+                  className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-white/90 hover:bg-white text-charcoal hover:text-forest flex items-center justify-center shadow-lg transition-all"
+                  aria-label="Fechar"
+                >
+                  <Icon name="x" className="w-5 h-5" />
+                </button>
+
+                {/* GALERIA DE FOTOS INTERATIVA */}
+                <div className="relative aspect-[16/9] sm:aspect-[21/9] bg-gray-900 overflow-hidden rounded-t-3xl">
+                  <img 
+                    src={selectedProperty.images[galleryIndex]} 
+                    alt={selectedProperty.title} 
+                    className="w-full h-full object-cover transition-all duration-300"
+                  />
+                  
+                  {/* Tag Flutuante */}
+                  <div className="absolute top-4 left-4">
+                    <span className="px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-sage text-forest shadow-md">
+                      {selectedProperty.tag}
+                    </span>
+                  </div>
+
+                  {/* Controles de navegação da galeria */}
+                  {selectedProperty.images.length > 1 && (
+                    <div className="absolute inset-x-4 bottom-4 flex justify-between items-center pointer-events-none">
+                      <button 
+                        onClick={() => setGalleryIndex((galleryIndex - 1 + selectedProperty.images.length) % selectedProperty.images.length)}
+                        className="pointer-events-auto w-9 h-9 rounded-full bg-black/50 hover:bg-black/80 text-white flex items-center justify-center backdrop-blur-sm transition-all"
+                      >
+                        <Icon name="chevron-left" className="w-5 h-5" />
+                      </button>
+                      
+                      <div className="bg-black/60 backdrop-blur-md px-3 py-1 rounded-full text-white text-xs font-medium">
+                        Foto {galleryIndex + 1} de {selectedProperty.images.length}
+                      </div>
+
+                      <button 
+                        onClick={() => setGalleryIndex((galleryIndex + 1) % selectedProperty.images.length)}
+                        className="pointer-events-auto w-9 h-9 rounded-full bg-black/50 hover:bg-black/80 text-white flex items-center justify-center backdrop-blur-sm transition-all"
+                      >
+                        <Icon name="chevron-right" className="w-5 h-5" />
+                      </button>
+                    </div>
+                  )}
+                </div>
+
+                {/* Tira de Miniaturas (Thumbnails) */}
+                {selectedProperty.images.length > 1 && (
+                  <div className="flex gap-2 p-3 bg-offwhite border-b border-gray-100 overflow-x-auto">
+                    {selectedProperty.images.map((img, idx) => (
+                      <button
+                        key={idx}
+                        onClick={() => setGalleryIndex(idx)}
+                        className={`relative w-20 h-14 rounded-lg overflow-hidden flex-shrink-0 border-2 transition-all ${
+                          galleryIndex === idx ? 'border-emerald scale-95 shadow-md' : 'border-transparent opacity-70 hover:opacity-100'
+                        }`}
+                      >
+                        <img src={img} alt="Miniatura" className="w-full h-full object-cover" />
+                      </button>
+                    ))}
+                  </div>
+                )}
+
+                {/* CONTEÚDO PRINCIPAL DO MODAL */}
+                <div className="p-6 sm:p-8 space-y-8">
+                  
+                  {/* Cabeçalho do Imóvel: Título, Código e Preço */}
+                  <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 pb-6 border-b border-gray-100">
+                    <div>
+                      <div className="flex items-center space-x-2 text-xs font-semibold text-emerald mb-1">
+                        <Icon name="pin" className="w-4 h-4 text-emerald" />
+                        <span>{selectedProperty.neighborhood}, {selectedProperty.city}</span>
+                        <span className="text-gray-300">•</span>
+                        <span className="text-charcoal-subtle">Cód: {selectedProperty.code}</span>
+                      </div>
+                      <h2 className="font-serif text-2xl sm:text-3xl font-bold text-forest">
+                        {selectedProperty.title}
+                      </h2>
+                    </div>
+
+                    <div className="md:text-right">
+                      <div className="text-2xl sm:text-3xl font-extrabold text-forest">
+                        {formatCurrency(selectedProperty.price)}
+                        {selectedProperty.purpose === 'Alugar' && <span className="text-sm font-normal text-charcoal-subtle">/mês</span>}
+                      </div>
+                      <div className="text-xs text-charcoal-muted mt-1">
+                        Condomínio: {selectedProperty.condo > 0 ? formatCurrency(selectedProperty.condo) : 'Isento'} | IPTU: {formatCurrency(selectedProperty.iptu)}/mês
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Grade de Especificações Técnicas */}
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-4 rounded-2xl bg-offwhite border border-gray-200">
+                    <div className="flex items-center space-x-3">
+                      <div className="w-10 h-10 rounded-xl bg-sage/80 flex items-center justify-center text-emerald">
+                        <Icon name="area" className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <span className="text-xs text-charcoal-subtle block">Área Útil</span>
+                        <strong className="text-sm font-bold text-forest">{selectedProperty.area} m²</strong>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center space-x-3">
+                      <div className="w-10 h-10 rounded-xl bg-sage/80 flex items-center justify-center text-emerald">
+                        <Icon name="bed" className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <span className="text-xs text-charcoal-subtle block">Dormitórios</span>
+                        <strong className="text-sm font-bold text-forest">
+                          {selectedProperty.bedrooms > 0 
+                            ? `${selectedProperty.bedrooms} Quartos (${selectedProperty.suites} Suítes)`
+                            : 'Área Livre / Terreno'}
+                        </strong>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center space-x-3">
+                      <div className="w-10 h-10 rounded-xl bg-sage/80 flex items-center justify-center text-emerald">
+                        <Icon name="bath" className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <span className="text-xs text-charcoal-subtle block">Banheiros</span>
+                        <strong className="text-sm font-bold text-forest">
+                          {selectedProperty.bathrooms > 0 
+                            ? `${selectedProperty.bathrooms} Banheiros` 
+                            : 'Conforme Projeto'}
+                        </strong>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center space-x-3">
+                      <div className="w-10 h-10 rounded-xl bg-sage/80 flex items-center justify-center text-emerald">
+                        <Icon name="car" className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <span className="text-xs text-charcoal-subtle block">Vagas</span>
+                        <strong className="text-sm font-bold text-forest">{selectedProperty.parking} Vagas Demarcadas</strong>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Descrição Detalhada */}
+                  <div>
+                    <h3 className="font-serif text-lg font-bold text-forest mb-3">
+                      Sobre este Imóvel
+                    </h3>
+                    <p className="text-charcoal leading-relaxed text-sm sm:text-base">
+                      {selectedProperty.description}
+                    </p>
+                  </div>
+
+                  {/* Lista de Comodidades e Diferenciais */}
+                  <div>
+                    <h3 className="font-serif text-lg font-bold text-forest mb-3">
+                      Comodidades e Acabamentos
+                    </h3>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                      {selectedProperty.amenities.map((item, idx) => (
+                        <div key={idx} className="flex items-center space-x-2.5 text-xs sm:text-sm text-charcoal">
+                          <span className="w-5 h-5 rounded-full bg-sage flex items-center justify-center text-forest flex-shrink-0">
+                            <Icon name="check" className="w-3.5 h-3.5 text-emerald" />
+                          </span>
+                          <span>{item}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* AÇÕES DIRETAS E FORMULÁRIO DE VISITA */}
+                  <div className="pt-6 border-t border-gray-100">
+                    <div className="flex flex-col sm:flex-row items-center gap-4 mb-8">
+                      {/* Botão de Contato WhatsApp com mensagem pré-formatada */}
+                      <a
+                        href={`https://wa.me/5511999998888?text=${encodeURIComponent(`Olá! Tenho interesse no imóvel ${selectedProperty.title} (Código: ${selectedProperty.code}) anunciado no site da Alloggi. Gostaria de mais detalhes.`)}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-full sm:flex-1 bg-[#25D366] hover:bg-[#20ba5a] text-white font-semibold py-3.5 px-6 rounded-2xl flex items-center justify-center space-x-2 shadow-md hover:shadow-lg transition-all"
+                      >
+                        <Icon name="whatsapp" className="w-5 h-5" />
+                        <span>Falar com Consultor no WhatsApp</span>
+                      </a>
+
+                      {/* Botão de Favoritar dentro do modal */}
+                      <button
+                        onClick={(e) => toggleFavorite(e, selectedProperty.id)}
+                        className={`w-full sm:w-auto px-5 py-3.5 rounded-2xl font-semibold flex items-center justify-center space-x-2 border transition-all ${
+                          favorites.includes(selectedProperty.id)
+                            ? 'bg-sage border-emerald text-forest'
+                            : 'border-gray-200 text-charcoal hover:border-emerald'
+                        }`}
+                      >
+                        <Icon name={favorites.includes(selectedProperty.id) ? "heart-filled" : "heart"} className="w-5 h-5 text-emerald" />
+                        <span>{favorites.includes(selectedProperty.id) ? 'Favoritado' : 'Salvar Favorito'}</span>
+                      </button>
+                    </div>
+
+                    {/* Formulário de Agendamento de Visita Presencial ou VIP */}
+                    <div className="bg-offwhite p-6 rounded-2xl border border-gray-200">
+                      <div className="flex items-center space-x-2 mb-4">
+                        <Icon name="calendar" className="w-5 h-5 text-emerald" />
+                        <h4 className="font-serif text-lg font-bold text-forest">
+                          Agendar Visita Exclusiva
+                        </h4>
+                      </div>
+
+                      {scheduleSubmitted ? (
+                        <div className="p-6 bg-sage/50 border border-emerald/30 rounded-xl text-center animate-fade-in">
+                          <div className="w-12 h-12 rounded-full bg-emerald text-white flex items-center justify-center mx-auto mb-3">
+                            <Icon name="check" className="w-6 h-6" />
+                          </div>
+                          <h5 className="font-serif text-lg font-bold text-forest mb-1">
+                            Visita Solicitada com Sucesso!
+                          </h5>
+                          <p className="text-xs sm:text-sm text-charcoal-muted">
+                            Nosso especialista patrimonial entrará em contato com você via WhatsApp para confirmar o horário e preparar o acesso ao condomínio.
+                          </p>
+                        </div>
+                      ) : (
+                        <form onSubmit={handleScheduleSubmit} className="space-y-4">
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                              <label className="block text-xs font-semibold text-charcoal uppercase tracking-wider mb-1">
+                                Seu Nome Completo *
+                              </label>
+                              <input 
+                                type="text"
+                                required
+                                value={scheduleData.name}
+                                onChange={(e) => setScheduleData({...scheduleData, name: e.target.value})}
+                                placeholder="ex: Roberto Albuquerque"
+                                className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-emerald bg-white"
+                              />
+                            </div>
+                            <div>
+                              <label className="block text-xs font-semibold text-charcoal uppercase tracking-wider mb-1">
+                                WhatsApp / Telefone *
+                              </label>
+                              <input 
+                                type="tel"
+                                required
+                                value={scheduleData.phone}
+                                onChange={(e) => setScheduleData({...scheduleData, phone: e.target.value})}
+                                placeholder="(11) 99999-0000"
+                                className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-emerald bg-white"
+                              />
+                            </div>
+                          </div>
+
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                              <label className="block text-xs font-semibold text-charcoal uppercase tracking-wider mb-1">
+                                E-mail Corporativo / Pessoal *
+                              </label>
+                              <input 
+                                type="email"
+                                required
+                                value={scheduleData.email}
+                                onChange={(e) => setScheduleData({...scheduleData, email: e.target.value})}
+                                placeholder="roberto@email.com"
+                                className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-emerald bg-white"
+                              />
+                            </div>
+                            <div>
+                              <label className="block text-xs font-semibold text-charcoal uppercase tracking-wider mb-1">
+                                Data de Preferência
+                              </label>
+                              <input 
+                                type="date"
+                                value={scheduleData.date}
+                                onChange={(e) => setScheduleData({...scheduleData, date: e.target.value})}
+                                className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-emerald bg-white"
+                              />
+                            </div>
+                          </div>
+
+                          <div>
+                            <label className="block text-xs font-semibold text-charcoal uppercase tracking-wider mb-1">
+                              Período Mais Conveniente
+                            </label>
+                            <div className="grid grid-cols-3 gap-2">
+                              {['Manhã (09h - 12h)', 'Tarde (14h - 18h)', 'Fim de Semana'].map((p) => (
+                                <button
+                                  type="button"
+                                  key={p}
+                                  onClick={() => setScheduleData({...scheduleData, period: p})}
+                                  className={`py-2 px-2 text-xs font-semibold rounded-xl border transition-all text-center ${
+                                    scheduleData.period === p
+                                      ? 'bg-forest text-white border-forest'
+                                      : 'bg-white text-charcoal border-gray-200 hover:border-emerald'
+                                  }`}
+                                >
+                                  {p}
+                                </button>
+                              ))}
+                            </div>
+                          </div>
+
+                          <button
+                            type="submit"
+                            className="w-full bg-forest hover:bg-forest-light text-white text-sm font-semibold py-3.5 rounded-xl shadow-md transition-all active:scale-95"
+                          >
+                            Solicitar Agendamento de Visita
+                          </button>
+                        </form>
+                      )}
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+          )}
+
+          {/* ======================================================== */}
+          {/* MODAL: ANUNCIAR IMÓVEL                                   */}
+          {/* ======================================================== */}
+          {isAnunciarOpen && (
+            <div className="fixed inset-0 z-50 overflow-y-auto bg-black/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 animate-fade-in">
+              <div 
+                className="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl border border-gray-100 relative animate-modal text-charcoal"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <button
+                  onClick={() => setIsAnunciarOpen(false)}
+                  className="absolute top-4 right-4 text-charcoal-muted hover:text-forest"
+                >
+                  <Icon name="x" className="w-6 h-6" />
+                </button>
+
+                <div className="text-center mb-6">
+                  <div className="w-12 h-12 rounded-2xl bg-sage flex items-center justify-center text-forest mx-auto mb-3">
+                    <Icon name="sparkles" className="w-6 h-6 text-emerald" />
+                  </div>
+                  <h3 className="font-serif text-2xl font-bold text-forest">
+                    Anuncie seu Imóvel na Alloggi
+                  </h3>
+                  <p className="text-xs sm:text-sm text-charcoal-muted mt-1">
+                    Conectamos sua propriedade aos compradores e investidores mais qualificados do mercado nacional e internacional.
+                  </p>
+                </div>
+
+                {anunciarSuccess ? (
+                  <div className="p-8 bg-sage/50 rounded-2xl text-center">
+                    <Icon name="check" className="w-10 h-10 text-emerald mx-auto mb-3" />
+                    <h4 className="font-serif text-lg font-bold text-forest mb-1">
+                      Informações Enviadas com Sucesso!
+                    </h4>
+                    <p className="text-xs text-charcoal-muted">
+                      Nossa equipe de avaliação patrimonial entrará em contato para agendar o ensaio fotográfico profissional.
+                    </p>
+                  </div>
+                ) : (
+                  <form onSubmit={handleAnunciarSubmit} className="space-y-4">
+                    <div>
+                      <label className="block text-xs font-semibold text-charcoal uppercase mb-1">Seu Nome Completo *</label>
+                      <input required type="text" placeholder="Nome do proprietário" className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:ring-2 focus:ring-emerald focus:outline-none" />
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-3">
+                      <div>
+                        <label className="block text-xs font-semibold text-charcoal uppercase mb-1">WhatsApp / Telefone *</label>
+                        <input required type="tel" placeholder="(11) 99999-9999" className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:ring-2 focus:ring-emerald focus:outline-none" />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-semibold text-charcoal uppercase mb-1">E-mail *</label>
+                        <input required type="email" placeholder="seu@email.com" className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:ring-2 focus:ring-emerald focus:outline-none" />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-3">
+                      <div>
+                        <label className="block text-xs font-semibold text-charcoal uppercase mb-1">Tipo de Imóvel</label>
+                        <select className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:ring-2 focus:ring-emerald focus:outline-none">
+                          <option>Apartamento</option>
+                          <option>Cobertura</option>
+                          <option>Casa em Condomínio</option>
+                          <option>Casa de Bairro</option>
+                          <option>Laje Corporativa</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label className="block text-xs font-semibold text-charcoal uppercase mb-1">Bairro em São Paulo</label>
+                        <input required type="text" placeholder="ex: Jardins, Itaim Bibi" className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:ring-2 focus:ring-emerald focus:outline-none" />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-3">
+                      <div>
+                        <label className="block text-xs font-semibold text-charcoal uppercase mb-1">Área Aproximada (m²)</label>
+                        <input type="number" placeholder="ex: 280" className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:ring-2 focus:ring-emerald focus:outline-none" />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-semibold text-charcoal uppercase mb-1">Preço Estimado (R$)</label>
+                        <input type="text" placeholder="ex: 5.500.000" className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:ring-2 focus:ring-emerald focus:outline-none" />
+                      </div>
+                    </div>
+
+                    <div className="pt-2">
+                      <button
+                        type="submit"
+                        className="w-full bg-forest hover:bg-forest-light text-white font-semibold py-3.5 rounded-xl shadow-md transition-all active:scale-95"
+                      >
+                        Enviar Imóvel para Curadoria
+                      </button>
+                    </div>
+                  </form>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* ======================================================== */}
+          {/* 5. RODAPÉ COMPLETO EM VERDE-FLORESTA (#1B4332)           */}
+          {/* ======================================================== */}
+          <footer id="contato" className="bg-forest text-white pt-16 pb-12 border-t border-forest-light">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-forest-light/60">
+                
+                {/* Coluna 1: Marca & Manifesto */}
+                <div className="lg:col-span-2 space-y-4">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-10 h-10 rounded-xl bg-sage flex items-center justify-center text-forest font-serif font-bold text-2xl shadow-sm">
+                      A
+                    </div>
+                    <span className="font-serif text-3xl font-bold tracking-tight text-white">
+                      Alloggi
+                    </span>
+                  </div>
+                  <p className="text-sm text-sage/80 leading-relaxed max-w-sm">
+                    Imobiliária boutique especializada no mercado de altíssimo padrão em São Paulo. Unimos sensibilidade estética, curadoria arquitetônica e total discrição.
+                  </p>
+                  
+                  {/* Endereço Fictício */}
+                  <div className="pt-2 text-xs text-sage/70 space-y-1">
+                    <p className="flex items-center space-x-2">
+                      <Icon name="pin" className="w-4 h-4 text-emerald-light" />
+                      <span>Av. Brigadeiro Faria Lima, 3477 - 14º andar, Itaim Bibi</span>
+                    </p>
+                    <p className="pl-6">São Paulo - SP, 04538-133</p>
+                    <p className="pl-6 font-semibold text-sage">CRECI 38.492-J</p>
+                  </div>
+                </div>
+
+                {/* Coluna 2: Links Rápidos */}
+                <div>
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-sage mb-4">
+                    Navegação
+                  </h4>
+                  <ul className="space-y-2.5 text-sm text-white/80">
+                    <li><a href="#catalogo" onClick={() => setPurpose('Comprar')} className="hover:text-sage transition-colors">Comprar Imóveis</a></li>
+                    <li><a href="#catalogo" onClick={() => setPurpose('Alugar')} className="hover:text-sage transition-colors">Locação de Alto Padrão</a></li>
+                    <li><a href="#catalogo" onClick={() => setPropertyType('Cobertura')} className="hover:text-sage transition-colors">Coberturas Exclusivas</a></li>
+                    <li><a href="#catalogo" onClick={() => setPropertyType('Casa')} className="hover:text-sage transition-colors">Mansões & Casas</a></li>
+                    <li><a href="#diferenciais" className="hover:text-sage transition-colors">Sobre a Alloggi</a></li>
+                  </ul>
+                </div>
+
+                {/* Coluna 3: Bairros em Destaque */}
+                <div>
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-sage mb-4">
+                    Bairros Nobres
+                  </h4>
+                  <ul className="space-y-2.5 text-sm text-white/80">
+                    <li><a href="#catalogo" onClick={() => setLocation('Jardins')} className="hover:text-sage transition-colors">Jardins & Jd. Europa</a></li>
+                    <li><a href="#catalogo" onClick={() => setLocation('Itaim Bibi')} className="hover:text-sage transition-colors">Itaim Bibi</a></li>
+                    <li><a href="#catalogo" onClick={() => setLocation('Vila Nova Conceição')} className="hover:text-sage transition-colors">Vila Nova Conceição</a></li>
+                    <li><a href="#catalogo" onClick={() => setLocation('Pinheiros')} className="hover:text-sage transition-colors">Pinheiros & Alto de Pinheiros</a></li>
+                    <li><a href="#catalogo" onClick={() => setLocation('Higienópolis')} className="hover:text-sage transition-colors">Higienópolis</a></li>
+                  </ul>
+                </div>
+
+                {/* Coluna 4: Canais de Atendimento & Newsletter */}
+                <div>
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-sage mb-4">
+                    Atendimento Privativo
+                  </h4>
+                  <div className="space-y-2.5 text-sm text-white/80 mb-6">
+                    <p className="font-semibold text-white">(11) 3090-8800</p>
+                    <p className="text-emerald-light font-medium flex items-center space-x-1.5">
+                      <Icon name="whatsapp" className="w-4 h-4 text-emerald-light" />
+                      <span>(11) 99999-8888</span>
+                    </p>
+                    <p className="text-xs text-sage/70">contato@alloggiimoveis.com.br</p>
+                    <p className="text-xs text-sage/70">Segunda a Sábado, das 08h às 20h</p>
+                  </div>
+
+                  {/* Newsletter */}
+                  <div>
+                    <span className="text-xs text-sage block mb-1.5 font-medium">Receba oportunidades off-market:</span>
+                    {newsletterSuccess ? (
+                      <div className="text-xs text-sage bg-forest-light px-3 py-2 rounded-lg">
+                        E-mail cadastrado com sucesso!
+                      </div>
+                    ) : (
+                      <form onSubmit={(e) => { e.preventDefault(); setNewsletterSuccess(true); showToast("Inscrito na newsletter da Alloggi!"); }} className="flex">
+                        <input 
+                          type="email" 
+                          required
+                          value={newsletterEmail}
+                          onChange={(e) => setNewsletterEmail(e.target.value)}
+                          placeholder="Seu e-mail..."
+                          className="bg-forest-dark border border-forest-light px-3 py-2 text-xs rounded-l-lg text-white focus:outline-none focus:border-sage w-full placeholder:text-white/40"
+                        />
+                        <button type="submit" className="bg-sage hover:bg-white text-forest px-3 py-2 rounded-r-lg text-xs font-bold transition-colors">
+                          OK
+                        </button>
+                      </form>
+                    )}
+                  </div>
+                </div>
+
+              </div>
+
+              {/* Linha Inferior do Rodapé: Copyright e Redes Sociais */}
+              <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-sage/70 gap-4">
+                <p>
+                  © {new Date().getFullYear()} Alloggi Imóveis de Alto Padrão. Todos os direitos reservados.
+                </p>
+
+                <div className="flex items-center space-x-6 text-white/70">
+                  <a href="#" className="hover:text-sage transition-colors">Instagram</a>
+                  <a href="#" className="hover:text-sage transition-colors">LinkedIn</a>
+                  <a href="#" className="hover:text-sage transition-colors">YouTube</a>
+                  <a href="#" className="hover:text-sage transition-colors">Privacidade</a>
+                  <a href="#" className="hover:text-sage transition-colors">Termos</a>
+                </div>
+              </div>
+
+            </div>
+          </footer>
+
+        </div>
+      );
+    }
+
+    // Renderização no elemento DOM raiz
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<AlloggiApp />);
+  </script>
+</body>
+</html>

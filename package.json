@@ -1,0 +1,23 @@
+{
+  "name": "alloggi-imoveis-luxo",
+  "version": "1.0.0",
+  "description": "Alloggi - Aplicação Web de Alto Padrão para Imobiliária Boutique em São Paulo",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "alloggi",
+    "real-estate",
+    "luxury-homes",
+    "sao-paulo",
+    "react",
+    "tailwind-css"
+  ],
+  "author": "Gustavo <gustavoss6@al.insper.edu.br> (https://github.com/gustaoss6)",
+  "license": "MIT",
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
