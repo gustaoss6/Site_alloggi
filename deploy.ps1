@@ -32,7 +32,7 @@ if ($status) {
 }
 
 # 4. Definir e conectar ao repositório remoto
-$repoName = "Allggi"
+$repoName = "Site_alloggi"
 $githubUser = "gustaoss6"
 $remoteUrl = "https://github.com/$githubUser/$repoName.git"
 

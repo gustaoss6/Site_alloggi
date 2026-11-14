@@ -21,7 +21,7 @@ git commit -m "feat: initial commit - Alloggi real estate luxury web platform"
 REM Configurar remote
 echo [3/4] Configurando remote origin...
 git remote remove origin 2>nul
-git remote add origin https://github.com/gustaoss6/Allggi.git
+git remote add origin https://github.com/gustaoss6/Site_alloggi.git
 
 REM Push
 echo [4/4] Enviando para o GitHub...

@@ -87,8 +87,8 @@ O design foi concebido para transmitir **confiança, frescor, sofisticação e c
 
 1. **Clone o repositório:**
    ```bash
-   git clone https://github.com/gustaoss6/Allggi.git
-   cd Allggi
+   git clone https://github.com/gustaoss6/Site_alloggi.git
+   cd Site_alloggi
    ```
 
 2. **Inicie o servidor local:**
