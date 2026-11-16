@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Alloggi | Imóveis de Alto Padrão em São Paulo</title>
-  <meta name="description" content="Alloggi Imóveis de Alto Padrão - Curadoria exclusiva de coberturas, casas contemporâneas e apartamentos de luxo em São Paulo. Jardins, Itaim Bibi, Pinheiros e Vila Nova Conceição.">
+  <title>ALLOGGI NEGÓCIOS IMOBILIÁRIOS | "Nosso maior patrimônio é você"</title>
+  <meta name="description" content="ALLOGGI NEGÓCIOS IMOBILIÁRIOS - 'Nosso maior patrimônio é você'. Curadoria e assessoria imobiliária de alto padrão em São Paulo. CRECI-SP: 257633-F | CREA-SP: 5069708558. Contato: (11) 97169-1023 | (11) 2758-6393.">
   
   <!-- Favicon Monograma Elegante -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%231B4332'/><path d='M30 72L50 26L70 72M38 56H62' stroke='%23D8F3DC' stroke-width='8' stroke-linecap='round' stroke-linejoin='round' fill='none'/></svg>">
@@ -641,6 +641,18 @@
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
           );
+        case "phone":
+          return (
+            <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" {...props}>
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+            </svg>
+          );
+        case "mail":
+          return (
+            <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" {...props}>
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+          );
         default:
           return null;
       }
@@ -880,30 +892,69 @@
           
           {/* TOAST FLUTUANTE */}
           {toast && (
-            <div className="fixed bottom-6 right-6 z-50 bg-forest text-white px-5 py-3.5 rounded-xl shadow-2xl flex items-center space-x-3 border border-sage/20 animate-fade-in">
+            <div className="fixed bottom-24 right-6 z-50 bg-forest text-white px-5 py-3.5 rounded-xl shadow-2xl flex items-center space-x-3 border border-sage/20 animate-fade-in">
               <span className="w-2.5 h-2.5 rounded-full bg-emerald"></span>
               <p className="text-sm font-medium">{toast}</p>
             </div>
           )}
 
           {/* ======================================================== */}
-          {/* 1. CABEÇALHO (NAVBAR)                                     */}
+          {/* 1. CABEÇALHO (NAVBAR & TOPBAR)                            */}
           {/* ======================================================== */}
           <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-sm transition-all duration-200">
+            {/* Top Bar Institucional: Slogan, Telefones, E-mail e Registros Oficiais */}
+            <div className="bg-forest text-white/90 text-xs py-2 px-4 sm:px-6 lg:px-8 border-b border-forest-light/30">
+              <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+                <div className="flex items-center space-x-3 flex-wrap">
+                  <span className="font-serif italic text-sage hidden lg:inline">
+                    "Nosso maior patrimônio é você"
+                  </span>
+                  <span className="hidden lg:inline text-white/30">•</span>
+                  <div className="flex items-center space-x-2 text-[11px]">
+                    <span className="bg-forest-light/80 px-2 py-0.5 rounded text-white font-medium border border-white/10">CRECI-SP: 257633-F</span>
+                    <span className="bg-forest-light/80 px-2 py-0.5 rounded text-white font-medium border border-white/10">CREA-SP: 5069708558</span>
+                  </div>
+                </div>
+                
+                <div className="flex items-center space-x-4 sm:space-x-6 text-[12px] ml-auto">
+                  <a href="tel:+551127586393" className="flex items-center space-x-1.5 hover:text-sage transition-colors" title="Telefone Fixo">
+                    <Icon name="phone" className="w-3.5 h-3.5 text-emerald-light" />
+                    <span>(11) 2758-6393</span>
+                  </a>
+                  <a 
+                    href="https://wa.me/5511971691023?text=Ol%C3%A1!%20Gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20os%20im%C3%B3veis%20da%20Alloggi%20Neg%C3%B3cios%20Imobili%C3%A1rios." 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="flex items-center space-x-1.5 text-emerald-light hover:text-white font-semibold transition-colors"
+                    title="Celular / WhatsApp"
+                  >
+                    <Icon name="whatsapp" className="w-3.5 h-3.5" />
+                    <span>(11) 97169-1023</span>
+                  </a>
+                  <a href="mailto:allogginegocios@gmail.com" className="hidden sm:flex items-center space-x-1.5 hover:text-sage transition-colors" title="E-mail de Contato">
+                    <Icon name="mail" className="w-3.5 h-3.5 text-emerald-light" />
+                    <span>allogginegocios@gmail.com</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="flex items-center justify-between h-20">
                 
-                {/* Logo Tipográfico Elegante "Alloggi" */}
-                <a href="#" className="flex items-center space-x-3 group">
-                  <div className="w-10 h-10 rounded-xl bg-forest flex items-center justify-center text-sage font-serif font-bold text-2xl shadow-md transition-transform duration-300 group-hover:scale-105">
-                    A
-                  </div>
-                  <div>
-                    <span className="font-serif text-2xl sm:text-3xl font-bold tracking-tight text-forest block leading-none">
-                      Alloggi
+                {/* Logo Oficial ALLOGGI NEGÓCIOS IMOBILIÁRIOS */}
+                <a href="#" className="flex items-center space-x-3 group py-1">
+                  <img 
+                    src="Logo.jpeg" 
+                    alt="ALLOGGI NEGÓCIOS IMOBILIÁRIOS" 
+                    className="h-11 sm:h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105" 
+                  />
+                  <div className="flex flex-col">
+                    <span className="font-serif text-xl sm:text-2xl font-bold tracking-tight text-forest block leading-none">
+                      ALLOGGI
                     </span>
-                    <span className="text-[10px] tracking-[0.25em] uppercase font-semibold text-emerald-light block mt-0.5">
-                      Imóveis de Alto Padrão
+                    <span className="text-[9px] sm:text-[10px] tracking-[0.2em] uppercase font-bold text-emerald block mt-1 leading-none">
+                      NEGÓCIOS IMOBILIÁRIOS
                     </span>
                   </div>
                 </a>
@@ -922,7 +973,7 @@
                   <a href="#catalogo" onClick={() => { setPropertyType('Cobertura'); }} className="text-sm font-medium text-charcoal hover:text-emerald transition-colors">
                     Lançamentos
                   </a>
-                  <a href="#diferenciais" className="text-sm font-medium text-charcoal hover:text-emerald transition-colors">
+                  <a href="#sobre" className="text-sm font-medium text-charcoal hover:text-emerald transition-colors">
                     Sobre Nós
                   </a>
                   <a href="#contato" className="text-sm font-medium text-charcoal hover:text-emerald transition-colors">
@@ -930,8 +981,20 @@
                   </a>
                 </nav>
 
-                {/* Ações Navbar (Favoritos & Botão Anunciar Imóvel) */}
-                <div className="hidden lg:flex items-center space-x-4">
+                {/* Ações Navbar (WhatsApp, Favoritos & Botão Anunciar Imóvel) */}
+                <div className="hidden lg:flex items-center space-x-3">
+                  {/* Botão Rápido WhatsApp */}
+                  <a 
+                    href="https://wa.me/5511971691023?text=Ol%C3%A1!%20Gostaria%20de%20atendimento%20da%20Alloggi%20Neg%C3%B3cios%20Imobili%C3%A1rios." 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="hidden xl:flex items-center space-x-1.5 bg-emerald/10 hover:bg-emerald/20 text-forest text-xs font-semibold px-3 py-2 rounded-xl border border-emerald/20 transition-all"
+                    title="Falar no WhatsApp"
+                  >
+                    <Icon name="whatsapp" className="w-4 h-4 text-emerald" />
+                    <span>(11) 97169-1023</span>
+                  </a>
+
                   {/* Botão de Favoritos Salvos */}
                   <button 
                     onClick={() => {
@@ -1020,7 +1083,7 @@
                     Lançamentos
                   </a>
                   <a 
-                    href="#diferenciais" 
+                    href="#sobre" 
                     onClick={() => setMobileMenuOpen(false)} 
                     className="text-base font-medium text-charcoal hover:text-emerald py-1"
                   >
@@ -1059,6 +1122,32 @@
                     Anunciar Imóvel
                   </button>
                 </div>
+
+                {/* Bloco Institucional Rápido no Mobile */}
+                <div className="pt-3 border-t border-gray-100 text-xs text-charcoal-muted space-y-2">
+                  <p className="font-serif italic text-forest font-medium text-center">
+                    "Nosso maior patrimônio é você"
+                  </p>
+                  <div className="bg-offwhite p-3 rounded-xl border border-gray-200/80 space-y-1.5">
+                    <a href="https://wa.me/5511971691023?text=Ol%C3%A1!%20Gostaria%20de%20atendimento%20da%20Alloggi%20Neg%C3%B3cios%20Imobili%C3%A1rios." target="_blank" rel="noopener noreferrer" className="flex items-center space-x-2 text-forest font-semibold">
+                      <Icon name="whatsapp" className="w-4 h-4 text-emerald" />
+                      <span>WhatsApp: (11) 97169-1023</span>
+                    </a>
+                    <a href="tel:+551127586393" className="flex items-center space-x-2 text-charcoal">
+                      <Icon name="phone" className="w-4 h-4 text-emerald" />
+                      <span>Fixo: (11) 2758-6393</span>
+                    </a>
+                    <a href="mailto:allogginegocios@gmail.com" className="flex items-center space-x-2 text-charcoal">
+                      <Icon name="mail" className="w-4 h-4 text-emerald" />
+                      <span>allogginegocios@gmail.com</span>
+                    </a>
+                  </div>
+                  <div className="flex items-center justify-center space-x-2 text-[11px] text-charcoal-muted pt-1">
+                    <span className="bg-gray-100 px-2 py-0.5 rounded font-medium">CRECI-SP: 257633-F</span>
+                    <span>•</span>
+                    <span className="bg-gray-100 px-2 py-0.5 rounded font-medium">CREA-SP: 5069708558</span>
+                  </div>
+                </div>
               </div>
             )}
           </header>
@@ -1082,16 +1171,37 @@
 
             {/* Conteúdo Hero */}
             <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-10 md:mb-14">
-              <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-sage/20 border border-sage/30 text-sage text-xs font-semibold uppercase tracking-wider mb-6 backdrop-blur-sm animate-fade-in">
+              <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-sage/20 border border-sage/30 text-sage text-xs font-semibold uppercase tracking-wider mb-6 backdrop-blur-sm animate-fade-in">
                 <Icon name="sparkles" className="w-3.5 h-3.5 text-sage" />
-                <span>Imobiliária Boutique de São Paulo</span>
+                <span>ALLOGGI NEGÓCIOS IMOBILIÁRIOS</span>
               </div>
               <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl text-white font-bold tracking-tight max-w-4xl mx-auto leading-tight drop-shadow-sm">
-                Encontre o espaço que combina com a sua história
+                "Nosso maior patrimônio é você"
               </h1>
               <p className="mt-5 text-base sm:text-lg text-sage/90 max-w-2xl mx-auto font-normal leading-relaxed">
-                Curadoria seleta dos endereços mais nobres e desejados de São Paulo: Jardins, Itaim Bibi, Pinheiros, Vila Nova Conceição e Moema.
+                Curadoria exclusiva nos endereços mais nobres de São Paulo, combinando excelência técnica em engenharia, segurança jurídica e atendimento consultivo sob medida.
               </p>
+
+              {/* Badges de Credibilidade e Contato no Hero */}
+              <div className="mt-7 flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 text-xs">
+                <span className="inline-flex items-center space-x-1.5 bg-forest-dark/80 backdrop-blur-md px-3.5 py-1.5 rounded-full text-sage border border-sage/25 shadow-sm">
+                  <Icon name="shield" className="w-3.5 h-3.5 text-emerald-light" />
+                  <span className="font-medium">CRECI-SP: 257633-F</span>
+                </span>
+                <span className="inline-flex items-center space-x-1.5 bg-forest-dark/80 backdrop-blur-md px-3.5 py-1.5 rounded-full text-sage border border-sage/25 shadow-sm">
+                  <Icon name="award" className="w-3.5 h-3.5 text-emerald-light" />
+                  <span className="font-medium">CREA-SP: 5069708558</span>
+                </span>
+                <a 
+                  href="https://wa.me/5511971691023?text=Ol%C3%A1!%20Gostaria%20de%20conversar%20com%20um%20consultor%20da%20Alloggi%20Neg%C3%B3cios%20Imobili%C3%A1rios." 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="inline-flex items-center space-x-1.5 bg-[#25D366] hover:bg-[#20ba5a] text-white px-4 py-1.5 rounded-full font-semibold shadow-md transition-all active:scale-95"
+                >
+                  <Icon name="whatsapp" className="w-3.5 h-3.5" />
+                  <span>WhatsApp: (11) 97169-1023</span>
+                </a>
+              </div>
             </div>
 
             {/* BARRA DE FILTROS AVANÇADA (Card Branco Elevado) */}
@@ -1355,7 +1465,7 @@
               <div>
                 <div className="flex items-center space-x-2 text-xs font-semibold uppercase tracking-wider text-emerald mb-1">
                   <Icon name="sparkles" className="w-4 h-4" />
-                  <span>Curadoria Exclusiva Alloggi</span>
+                  <span>Curadoria Exclusiva Alloggi Negócios Imobiliários</span>
                 </div>
                 <h2 className="font-serif text-2xl sm:text-3xl text-forest font-bold tracking-tight">
                   {showFavoritesOnly ? "Seus Imóveis Favoritados" : "Portfólio de Imóveis Selecionados"}
@@ -1571,21 +1681,143 @@
           </main>
 
           {/* ======================================================== */}
-          {/* 4. SEÇÕES COMPLEMENTARES: POR QUE ESCOLHER A ALLOGGI     */}
+          {/* 4. SEÇÃO INSTITUCIONAL: SOBRE A ALLOGGI & DIFERENCIAIS   */}
           {/* ======================================================== */}
-          <section id="diferenciais" className="bg-white py-20 border-t border-gray-200/80">
+          <section id="sobre" className="bg-white py-20 border-t border-gray-200/80">
+            {/* Âncora secundária de compatibilidade */}
+            <span id="diferenciais" className="block relative -top-28 invisible"></span>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               
+              {/* Header Institucional */}
               <div className="text-center max-w-3xl mx-auto mb-16">
                 <span className="inline-block text-xs font-bold uppercase tracking-widest text-emerald mb-2">
-                  Excelência Imobiliária
+                  Institucional & Excelência
                 </span>
                 <h2 className="font-serif text-3xl sm:text-4xl text-forest font-bold tracking-tight">
-                  Por que escolher a Alloggi
+                  ALLOGGI NEGÓCIOS IMOBILIÁRIOS
                 </h2>
-                <p className="mt-3 text-base text-charcoal-muted">
-                  Redefinimos a intermediação de imóveis de luxo com discrição, inteligência de mercado e atendimento altamente consultivo.
+                <p className="mt-3 font-serif text-xl sm:text-2xl text-emerald font-semibold italic">
+                  "Nosso maior patrimônio é você"
                 </p>
+                <p className="mt-3 text-base text-charcoal-muted leading-relaxed">
+                  Redefinimos a intermediação e curadoria de imóveis de luxo em São Paulo com discrição absoluta, inteligência analítica de mercado e assessoria técnica multidisciplinar.
+                </p>
+              </div>
+
+              {/* CARD INSTITUCIONAL DESTACADO: QUEM SOMOS + REGISTROS CRECI/CREA */}
+              <div className="bg-offwhite rounded-3xl p-6 sm:p-10 border border-gray-200 shadow-sm mb-16">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                  
+                  {/* Coluna Esquerda: Manifesto Institucional & Contatos Rápidos */}
+                  <div className="lg:col-span-7 space-y-5">
+                    <div className="inline-flex items-center space-x-2 text-xs font-bold uppercase tracking-wider text-emerald bg-sage/60 px-3 py-1 rounded-full">
+                      <Icon name="award" className="w-4 h-4 text-emerald" />
+                      <span>Tradição, Rigor Técnico & Ética</span>
+                    </div>
+
+                    <h3 className="font-serif text-2xl sm:text-3xl font-bold text-forest leading-snug">
+                      Assessoria completa para o seu patrimônio imobiliário
+                    </h3>
+
+                    <p className="text-sm sm:text-base text-charcoal leading-relaxed">
+                      A <strong>ALLOGGI NEGÓCIOS IMOBILIÁRIOS</strong> atua de forma personalizada e consultiva na curadoria de coberturas, casas contemporâneas e apartamentos de alto padrão em São Paulo. Compreendemos que cada imóvel representa uma história e um patrimônio único — por isso, guiamos cada negociação com empatia, rigor e máxima transparência.
+                    </p>
+
+                    <blockquote className="border-l-4 border-emerald pl-4 py-1 italic font-serif text-forest text-base sm:text-lg bg-white/70 rounded-r-xl">
+                      "Nosso maior patrimônio é você."
+                    </blockquote>
+
+                    {/* Linha de Canais Oficiais de Atendimento */}
+                    <div className="pt-2 flex flex-wrap gap-3 sm:gap-4 text-xs sm:text-sm">
+                      <a 
+                        href="https://wa.me/5511971691023?text=Ol%C3%A1!%20Gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20a%20Alloggi%20Neg%C3%B3cios%20Imobili%C3%A1rios." 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="inline-flex items-center space-x-2 bg-[#25D366] hover:bg-[#20ba5a] text-white px-4 py-2.5 rounded-xl font-semibold shadow-sm transition-all"
+                      >
+                        <Icon name="whatsapp" className="w-4 h-4" />
+                        <span>(11) 97169-1023</span>
+                      </a>
+                      <a 
+                        href="tel:+551127586393" 
+                        className="inline-flex items-center space-x-2 bg-white hover:bg-gray-100 text-forest px-4 py-2.5 rounded-xl font-semibold border border-gray-200 transition-all"
+                      >
+                        <Icon name="phone" className="w-4 h-4 text-emerald" />
+                        <span>Fixo: (11) 2758-6393</span>
+                      </a>
+                      <a 
+                        href="mailto:allogginegocios@gmail.com" 
+                        className="inline-flex items-center space-x-2 bg-white hover:bg-gray-100 text-forest px-4 py-2.5 rounded-xl font-semibold border border-gray-200 transition-all"
+                      >
+                        <Icon name="mail" className="w-4 h-4 text-emerald" />
+                        <span>allogginegocios@gmail.com</span>
+                      </a>
+                    </div>
+                  </div>
+
+                  {/* Coluna Direita: Registros Profissionais (CRECI-SP e CREA-SP) com Emblema */}
+                  <div className="lg:col-span-5">
+                    <div className="bg-white rounded-2xl p-6 sm:p-7 border border-emerald/20 shadow-luxury space-y-5">
+                      
+                      {/* Selo Visual dos Órgãos Oficiais */}
+                      <div className="flex items-center justify-center p-3 bg-gradient-to-b from-gray-50 to-white rounded-xl border border-gray-100">
+                        <img 
+                          src="Logo cresci.jpeg" 
+                          alt="Credenciamento CRECI-SP e CREA-SP - Alloggi Negócios Imobiliários" 
+                          className="h-24 sm:h-28 w-auto object-contain drop-shadow-sm"
+                        />
+                      </div>
+
+                      <div className="border-t border-gray-100 pt-4 space-y-3">
+                        <h4 className="text-xs font-bold uppercase tracking-wider text-charcoal-muted">
+                          Registros Profissionais Oficiais
+                        </h4>
+
+                        {/* Registro CRECI-SP */}
+                        <div className="flex items-start space-x-3 p-3 rounded-xl bg-sage/30 border border-emerald/15">
+                          <div className="w-8 h-8 rounded-lg bg-forest text-sage flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <Icon name="shield" className="w-4 h-4 text-emerald-light" />
+                          </div>
+                          <div>
+                            <span className="block font-bold text-forest text-sm">
+                              CRECI-SP: 257633-F
+                            </span>
+                            <span className="text-xs text-charcoal-muted leading-tight block">
+                              Conselho Regional de Corretores de Imóveis • Garantia de idoneidade jurídica, sigilo e conformidade documental.
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* Registro CREA-SP */}
+                        <div className="flex items-start space-x-3 p-3 rounded-xl bg-sage/30 border border-emerald/15">
+                          <div className="w-8 h-8 rounded-lg bg-forest text-sage flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <Icon name="award" className="w-4 h-4 text-emerald-light" />
+                          </div>
+                          <div>
+                            <span className="block font-bold text-forest text-sm">
+                              CREA-SP: 5069708558
+                            </span>
+                            <span className="text-xs text-charcoal-muted leading-tight block">
+                              Conselho Regional de Engenharia e Agronomia • Competência técnica em engenharia, avaliação estrutural e arquitetura.
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              {/* Título dos Pilares */}
+              <div className="text-center max-w-2xl mx-auto mb-10">
+                <span className="inline-block text-xs font-bold uppercase tracking-widest text-emerald mb-1">
+                  Nossos Diferenciais
+                </span>
+                <h3 className="font-serif text-2xl sm:text-3xl text-forest font-bold tracking-tight">
+                  Os 4 Pilares da Alloggi
+                </h3>
               </div>
 
               {/* Grid dos 4 Pilares Alloggi com Ícones em Verde-Esmeralda */}
@@ -1630,16 +1862,16 @@
                   </p>
                 </div>
 
-                {/* Pilar 4: Segurança Jurídica */}
+                {/* Pilar 4: Segurança Jurídica & Técnica */}
                 <div className="p-8 rounded-2xl bg-offwhite border border-gray-100 hover:border-emerald/30 transition-all duration-300 hover:shadow-luxury group">
                   <div className="w-14 h-14 rounded-2xl bg-sage flex items-center justify-center text-emerald mb-6 group-hover:scale-110 transition-transform">
                     <Icon name="shield" className="w-7 h-7 text-emerald" />
                   </div>
                   <h3 className="font-serif text-xl font-bold text-forest mb-2.5">
-                    Segurança Jurídica Total
+                    Segurança Jurídica & Técnica
                   </h3>
                   <p className="text-sm text-charcoal-muted leading-relaxed">
-                    Due diligence documental prévia rigorosa realizada por nosso corpo jurídico especializado em direito imobiliário de alto patrimônio.
+                    Due diligence documental completa e respaldo técnico multidisciplinar com credenciamento profissional <strong>CRECI-SP (257633-F)</strong> e <strong>CREA-SP (5069708558)</strong>.
                   </p>
                 </div>
 
@@ -1872,13 +2104,13 @@
                     <div className="flex flex-col sm:flex-row items-center gap-4 mb-8">
                       {/* Botão de Contato WhatsApp com mensagem pré-formatada */}
                       <a
-                        href={`https://wa.me/5511999998888?text=${encodeURIComponent(`Olá! Tenho interesse no imóvel ${selectedProperty.title} (Código: ${selectedProperty.code}) anunciado no site da Alloggi. Gostaria de mais detalhes.`)}`}
+                        href={`https://wa.me/5511971691023?text=${encodeURIComponent(`Olá! Tenho interesse no imóvel ${selectedProperty.title} (Código: ${selectedProperty.code}) anunciado no site da Alloggi Negócios Imobiliários. Gostaria de mais detalhes.`)}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="w-full sm:flex-1 bg-[#25D366] hover:bg-[#20ba5a] text-white font-semibold py-3.5 px-6 rounded-2xl flex items-center justify-center space-x-2 shadow-md hover:shadow-lg transition-all"
                       >
                         <Icon name="whatsapp" className="w-5 h-5" />
-                        <span>Falar com Consultor no WhatsApp</span>
+                        <span>Falar no WhatsApp: (11) 97169-1023</span>
                       </a>
 
                       {/* Botão de Favoritar dentro do modal */}
@@ -2004,6 +2236,19 @@
                           </button>
                         </form>
                       )}
+
+                      {/* Informações Institucionais no Modal */}
+                      <div className="mt-4 pt-3 border-t border-gray-200/80 text-center text-xs text-charcoal-muted space-y-1">
+                        <p className="font-serif italic text-forest font-semibold">
+                          "Nosso maior patrimônio é você"
+                        </p>
+                        <p>
+                          Central: <a href="tel:+551127586393" className="font-bold text-forest hover:underline">(11) 2758-6393</a> • WhatsApp: <a href="https://wa.me/5511971691023" target="_blank" rel="noopener noreferrer" className="font-bold text-emerald hover:underline">(11) 97169-1023</a> • <a href="mailto:allogginegocios@gmail.com" className="font-bold text-forest hover:underline">allogginegocios@gmail.com</a>
+                        </p>
+                        <p className="text-[11px] text-charcoal-muted">
+                          CRECI-SP: 257633-F | CREA-SP: 5069708558
+                        </p>
+                      </div>
                     </div>
                   </div>
 
@@ -2034,10 +2279,13 @@
                     <Icon name="sparkles" className="w-6 h-6 text-emerald" />
                   </div>
                   <h3 className="font-serif text-2xl font-bold text-forest">
-                    Anuncie seu Imóvel na Alloggi
+                    Anuncie seu Imóvel na ALLOGGI NEGÓCIOS IMOBILIÁRIOS
                   </h3>
-                  <p className="text-xs sm:text-sm text-charcoal-muted mt-1">
-                    Conectamos sua propriedade aos compradores e investidores mais qualificados do mercado nacional e internacional.
+                  <p className="text-xs sm:text-sm font-serif italic text-emerald font-semibold mt-1">
+                    "Nosso maior patrimônio é você"
+                  </p>
+                  <p className="text-xs sm:text-sm text-charcoal-muted mt-1.5">
+                    Assessoria técnica e comercial de excelência. Registros profissionais <strong>CRECI-SP: 257633-F</strong> e <strong>CREA-SP: 5069708558</strong>.
                   </p>
                 </div>
 
@@ -2112,35 +2360,146 @@
           )}
 
           {/* ======================================================== */}
-          {/* 5. RODAPÉ COMPLETO EM VERDE-FLORESTA (#1B4332)           */}
+          {/* 5. RODAPÉ E SEÇÃO DE CONTATO (#1B4332)                    */}
           {/* ======================================================== */}
           <footer id="contato" className="bg-forest text-white pt-16 pb-12 border-t border-forest-light">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               
+              {/* CARTÃO INSTITUCIONAL DE CONTATO DIRETO */}
+              <div className="bg-forest-dark/90 rounded-3xl p-6 sm:p-10 border border-forest-light/60 shadow-2xl mb-14">
+                <div className="text-center max-w-2xl mx-auto mb-8">
+                  <span className="inline-block text-xs font-bold uppercase tracking-widest text-emerald-light mb-1">
+                    Atendimento Oficial
+                  </span>
+                  <h3 className="font-serif text-2xl sm:text-3xl font-bold text-white tracking-tight">
+                    Fale com a ALLOGGI NEGÓCIOS IMOBILIÁRIOS
+                  </h3>
+                  <p className="font-serif italic text-sage text-base sm:text-lg mt-1">
+                    "Nosso maior patrimônio é você"
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                  {/* Celular / WhatsApp */}
+                  <a 
+                    href="https://wa.me/5511971691023?text=Ol%C3%A1!%20Gostaria%20de%20atendimento%20da%20Alloggi%20Neg%C3%B3cios%20Imobili%C3%A1rios." 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="p-5 rounded-2xl bg-forest border border-forest-light/50 hover:border-emerald-light transition-all duration-200 group flex flex-col justify-between"
+                  >
+                    <div>
+                      <div className="w-10 h-10 rounded-xl bg-emerald/20 flex items-center justify-center text-emerald-light mb-3 group-hover:scale-105 transition-transform">
+                        <Icon name="whatsapp" className="w-5 h-5" />
+                      </div>
+                      <span className="text-xs uppercase tracking-wider text-sage/70 font-semibold block">Celular / WhatsApp</span>
+                      <strong className="text-base sm:text-lg font-bold text-white block mt-1">(11) 97169-1023</strong>
+                    </div>
+                    <span className="mt-4 text-xs font-semibold text-emerald-light flex items-center space-x-1 group-hover:underline">
+                      <span>Iniciar conversa</span>
+                      <Icon name="chevron-right" className="w-3.5 h-3.5" />
+                    </span>
+                  </a>
+
+                  {/* Telefone Fixo */}
+                  <a 
+                    href="tel:+551127586393" 
+                    className="p-5 rounded-2xl bg-forest border border-forest-light/50 hover:border-emerald-light transition-all duration-200 group flex flex-col justify-between"
+                  >
+                    <div>
+                      <div className="w-10 h-10 rounded-xl bg-emerald/20 flex items-center justify-center text-emerald-light mb-3 group-hover:scale-105 transition-transform">
+                        <Icon name="phone" className="w-5 h-5" />
+                      </div>
+                      <span className="text-xs uppercase tracking-wider text-sage/70 font-semibold block">Telefone Fixo</span>
+                      <strong className="text-base sm:text-lg font-bold text-white block mt-1">(11) 2758-6393</strong>
+                    </div>
+                    <span className="mt-4 text-xs font-semibold text-emerald-light flex items-center space-x-1 group-hover:underline">
+                      <span>Ligar agora</span>
+                      <Icon name="chevron-right" className="w-3.5 h-3.5" />
+                    </span>
+                  </a>
+
+                  {/* E-mail de Contato */}
+                  <a 
+                    href="mailto:allogginegocios@gmail.com" 
+                    className="p-5 rounded-2xl bg-forest border border-forest-light/50 hover:border-emerald-light transition-all duration-200 group flex flex-col justify-between"
+                  >
+                    <div>
+                      <div className="w-10 h-10 rounded-xl bg-emerald/20 flex items-center justify-center text-emerald-light mb-3 group-hover:scale-105 transition-transform">
+                        <Icon name="mail" className="w-5 h-5" />
+                      </div>
+                      <span className="text-xs uppercase tracking-wider text-sage/70 font-semibold block">E-mail Oficial</span>
+                      <strong className="text-xs sm:text-sm font-bold text-white block mt-1 break-all">allogginegocios@gmail.com</strong>
+                    </div>
+                    <span className="mt-4 text-xs font-semibold text-emerald-light flex items-center space-x-1 group-hover:underline">
+                      <span>Enviar e-mail</span>
+                      <Icon name="chevron-right" className="w-3.5 h-3.5" />
+                    </span>
+                  </a>
+
+                  {/* Registros Profissionais */}
+                  <div className="p-5 rounded-2xl bg-forest border border-forest-light/50 flex flex-col justify-between">
+                    <div>
+                      <div className="w-10 h-10 rounded-xl bg-emerald/20 flex items-center justify-center text-emerald-light mb-3">
+                        <Icon name="shield" className="w-5 h-5" />
+                      </div>
+                      <span className="text-xs uppercase tracking-wider text-sage/70 font-semibold block">Registros Oficiais</span>
+                      <div className="mt-1 space-y-0.5">
+                        <strong className="text-sm font-bold text-white block">CRECI-SP: 257633-F</strong>
+                        <strong className="text-sm font-bold text-white block">CREA-SP: 5069708558</strong>
+                      </div>
+                    </div>
+                    <span className="mt-3 text-[11px] text-sage/80 block">
+                      Assessoria jurídica e técnica
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Grid Principal do Rodapé */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-forest-light/60">
                 
                 {/* Coluna 1: Marca & Manifesto */}
                 <div className="lg:col-span-2 space-y-4">
                   <div className="flex items-center space-x-3">
-                    <div className="w-10 h-10 rounded-xl bg-sage flex items-center justify-center text-forest font-serif font-bold text-2xl shadow-sm">
-                      A
+                    <div className="bg-white p-1.5 rounded-xl shadow-md">
+                      <img 
+                        src="Logo.jpeg" 
+                        alt="ALLOGGI NEGÓCIOS IMOBILIÁRIOS" 
+                        className="h-10 w-auto object-contain" 
+                      />
                     </div>
-                    <span className="font-serif text-3xl font-bold tracking-tight text-white">
-                      Alloggi
-                    </span>
+                    <div>
+                      <span className="font-serif text-xl sm:text-2xl font-bold tracking-tight text-white block leading-none">
+                        ALLOGGI
+                      </span>
+                      <span className="text-[10px] tracking-[0.2em] uppercase font-bold text-emerald-light block mt-1">
+                        NEGÓCIOS IMOBILIÁRIOS
+                      </span>
+                    </div>
                   </div>
+
+                  <p className="font-serif italic text-sage text-sm font-medium">
+                    "Nosso maior patrimônio é você"
+                  </p>
+
                   <p className="text-sm text-sage/80 leading-relaxed max-w-sm">
-                    Imobiliária boutique especializada no mercado de altíssimo padrão em São Paulo. Unimos sensibilidade estética, curadoria arquitetônica e total discrição.
+                    Imobiliária boutique especializada no mercado de alto padrão em São Paulo. Unimos sensibilidade estética, inteligência de mercado, engenharia técnica e total discrição.
                   </p>
                   
-                  {/* Endereço Fictício */}
-                  <div className="pt-2 text-xs text-sage/70 space-y-1">
+                  {/* Registros Profissionais */}
+                  <div className="pt-2 text-xs text-sage space-y-1">
                     <p className="flex items-center space-x-2">
-                      <Icon name="pin" className="w-4 h-4 text-emerald-light" />
-                      <span>Av. Brigadeiro Faria Lima, 3477 - 14º andar, Itaim Bibi</span>
+                      <Icon name="shield" className="w-4 h-4 text-emerald-light flex-shrink-0" />
+                      <span className="font-bold text-white">CRECI-SP: 257633-F</span>
                     </p>
-                    <p className="pl-6">São Paulo - SP, 04538-133</p>
-                    <p className="pl-6 font-semibold text-sage">CRECI 38.492-J</p>
+                    <p className="flex items-center space-x-2">
+                      <Icon name="award" className="w-4 h-4 text-emerald-light flex-shrink-0" />
+                      <span className="font-bold text-white">CREA-SP: 5069708558</span>
+                    </p>
+                    <p className="flex items-center space-x-2 pt-1 text-sage/70">
+                      <Icon name="pin" className="w-4 h-4 text-emerald-light flex-shrink-0" />
+                      <span>São Paulo - SP • Atendimento em toda a capital</span>
+                    </p>
                   </div>
                 </div>
 
@@ -2154,7 +2513,8 @@
                     <li><a href="#catalogo" onClick={() => setPurpose('Alugar')} className="hover:text-sage transition-colors">Locação de Alto Padrão</a></li>
                     <li><a href="#catalogo" onClick={() => setPropertyType('Cobertura')} className="hover:text-sage transition-colors">Coberturas Exclusivas</a></li>
                     <li><a href="#catalogo" onClick={() => setPropertyType('Casa')} className="hover:text-sage transition-colors">Mansões & Casas</a></li>
-                    <li><a href="#diferenciais" className="hover:text-sage transition-colors">Sobre a Alloggi</a></li>
+                    <li><a href="#sobre" className="hover:text-sage transition-colors">Sobre Nós</a></li>
+                    <li><a href="#contato" className="hover:text-sage transition-colors">Canais de Contato</a></li>
                   </ul>
                 </div>
 
@@ -2177,14 +2537,32 @@
                   <h4 className="text-xs font-bold uppercase tracking-wider text-sage mb-4">
                     Atendimento Privativo
                   </h4>
-                  <div className="space-y-2.5 text-sm text-white/80 mb-6">
-                    <p className="font-semibold text-white">(11) 3090-8800</p>
-                    <p className="text-emerald-light font-medium flex items-center space-x-1.5">
-                      <Icon name="whatsapp" className="w-4 h-4 text-emerald-light" />
-                      <span>(11) 99999-8888</span>
-                    </p>
-                    <p className="text-xs text-sage/70">contato@alloggiimoveis.com.br</p>
-                    <p className="text-xs text-sage/70">Segunda a Sábado, das 08h às 20h</p>
+                  <div className="space-y-3 text-sm text-white/80 mb-6">
+                    <div>
+                      <span className="text-[11px] uppercase tracking-wider text-sage/60 block">Telefone Fixo</span>
+                      <a href="tel:+551127586393" className="font-bold text-white hover:text-sage transition-colors block text-base">
+                        (11) 2758-6393
+                      </a>
+                    </div>
+                    <div>
+                      <span className="text-[11px] uppercase tracking-wider text-sage/60 block">Celular / WhatsApp</span>
+                      <a 
+                        href="https://wa.me/5511971691023?text=Ol%C3%A1!%20Gostaria%20de%20atendimento%20da%20Alloggi%20Neg%C3%B3cios%20Imobili%C3%A1rios." 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="text-emerald-light font-bold hover:text-white flex items-center space-x-1.5 transition-colors text-base"
+                      >
+                        <Icon name="whatsapp" className="w-4 h-4 text-emerald-light" />
+                        <span>(11) 97169-1023</span>
+                      </a>
+                    </div>
+                    <div>
+                      <span className="text-[11px] uppercase tracking-wider text-sage/60 block">E-mail de Contato</span>
+                      <a href="mailto:allogginegocios@gmail.com" className="text-xs text-sage hover:text-white transition-colors block break-all font-medium">
+                        allogginegocios@gmail.com
+                      </a>
+                    </div>
+                    <p className="text-xs text-sage/70 pt-1">Segunda a Sábado, das 08h às 20h</p>
                   </div>
 
                   {/* Newsletter */}
@@ -2217,7 +2595,7 @@
               {/* Linha Inferior do Rodapé: Copyright e Redes Sociais */}
               <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-sage/70 gap-4">
                 <p>
-                  © {new Date().getFullYear()} Alloggi Imóveis de Alto Padrão. Todos os direitos reservados.
+                  © {new Date().getFullYear()} ALLOGGI NEGÓCIOS IMOBILIÁRIOS. CRECI-SP: 257633-F | CREA-SP: 5069708558. "Nosso maior patrimônio é você". Todos os direitos reservados.
                 </p>
 
                 <div className="flex items-center space-x-6 text-white/70">
@@ -2231,6 +2609,21 @@
 
             </div>
           </footer>
+
+          {/* BOTÃO FLUTUANTE DE WHATSAPP (ACESSO RÁPIDO) */}
+          <a
+            href="https://wa.me/5511971691023?text=Ol%C3%A1!%20Entro%20em%20contato%20pelo%20site%20da%20Alloggi%20Neg%C3%B3cios%20Imobili%C3%A1rios."
+            target="_blank"
+            rel="noopener noreferrer"
+            className="fixed bottom-6 right-6 z-40 bg-[#25D366] hover:bg-[#20ba5a] text-white p-3.5 sm:px-4 sm:py-3.5 rounded-full shadow-2xl flex items-center space-x-2.5 transition-all duration-300 hover:scale-105 active:scale-95 group border-2 border-white"
+            aria-label="Atendimento via WhatsApp"
+            title="Fale conosco no WhatsApp: (11) 97169-1023"
+          >
+            <Icon name="whatsapp" className="w-6 h-6 text-white" />
+            <span className="hidden sm:inline font-semibold text-xs sm:text-sm">
+              WhatsApp (11) 97169-1023
+            </span>
+          </a>
 
         </div>
       );

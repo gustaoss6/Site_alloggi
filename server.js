@@ -24,7 +24,13 @@ const server = http.createServer((req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('X-Content-Type-Options', 'nosniff');
 
-  let reqUrl = req.url.split('?')[0];
+  let rawUrl = req.url.split('?')[0];
+  let reqUrl;
+  try {
+    reqUrl = decodeURIComponent(rawUrl);
+  } catch (e) {
+    reqUrl = rawUrl;
+  }
   if (reqUrl === '/') {
     reqUrl = '/index.html';
   }
@@ -72,7 +78,8 @@ const server = http.createServer((req, res) => {
 
 server.listen(PORT, () => {
   console.log(`=======================================================`);
-  console.log(`✨ Alloggi | Imóveis de Alto Padrão`);
+  console.log(`✨ ALLOGGI NEGÓCIOS IMOBILIÁRIOS`);
+  console.log(`"Nosso maior patrimônio é você"`);
   console.log(`Servidor local ativo em: http://localhost:${PORT}`);
   console.log(`=======================================================`);
 });

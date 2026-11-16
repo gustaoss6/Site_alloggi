@@ -1,7 +1,7 @@
 {
-  "name": "alloggi-imoveis-luxo",
+  "name": "alloggi-negocios-imobiliarios",
   "version": "1.0.0",
-  "description": "Alloggi - Aplicação Web de Alto Padrão para Imobiliária Boutique em São Paulo",
+  "description": "ALLOGGI NEGÓCIOS IMOBILIÁRIOS - \"Nosso maior patrimônio é você\". Aplicação web imobiliária de alto padrão em São Paulo.",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

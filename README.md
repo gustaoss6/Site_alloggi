@@ -1,11 +1,27 @@
-# 🌿 Alloggi | Imóveis de Alto Padrão
+# 🌿 ALLOGGI NEGÓCIOS IMOBILIÁRIOS
+
+> *"Nosso maior patrimônio é você"*
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-1B4332.svg)](https://opensource.org/licenses/MIT)
 [![Node.js](https://img.shields.io/badge/Node.js-%3E%3D16.0.0-2D6A4F.svg)](https://nodejs.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.x-D8F3DC.svg?color=1B4332)](https://tailwindcss.com/)
 [![React](https://img.shields.io/badge/React-18.x-1B4332.svg)](https://react.dev/)
+[![CRECI-SP](https://img.shields.io/badge/CRECI--SP-257633--F-1B4332.svg)](https://www.crecisp.gov.br/)
+[![CREA-SP](https://img.shields.io/badge/CREA--SP-5069708558-2D6A4F.svg)](https://www.creasp.org.br/)
 
-> **Alloggi** é uma aplicação web moderna, responsiva e de altíssimo padrão desenvolvida para uma imobiliária boutique com foco nos bairros mais nobres e cobiçados de São Paulo (Jardins, Itaim Bibi, Pinheiros, Vila Nova Conceição, Moema, Higienópolis e Cidade Jardim).
+**ALLOGGI NEGÓCIOS IMOBILIÁRIOS** é uma aplicação web de alto padrão desenvolvida para consultoria e curadoria imobiliária nos bairros mais nobres de São Paulo (Jardins, Itaim Bibi, Pinheiros, Vila Nova Conceição, Moema, Higienópolis e Cidade Jardim).
+
+---
+
+## 🏛️ Dados Institucionais Oficiais
+
+* **Razão / Nome:** ALLOGGI NEGÓCIOS IMOBILIÁRIOS
+* **Frase de Efeito (Slogan):** *"Nosso maior patrimônio é você"*
+* **Celular / WhatsApp:** (11) 97169-1023
+* **Telefone Fixo:** (11) 2758-6393
+* **E-mail de Contato:** allogginegocios@gmail.com
+* **CRECI-SP:** 257633-F (Conselho Regional de Corretores de Imóveis)
+* **CREA-SP:** 5069708558 (Conselho Regional de Engenharia e Agronomia)
 
 ---
 
@@ -107,14 +123,16 @@ O design foi concebido para transmitir **confiança, frescor, sofisticação e c
 ## 📂 Estrutura de Arquivos
 
 ```text
-├── index.html        # Aplicação completa (HTML5, Tailwind, React 18, Componentes e Dados)
-├── server.js         # Servidor HTTP nativo em Node.js com MIME types e SPA fallback
-├── package.json      # Metadados do projeto e scripts npm
-├── .gitignore        # Regras de exclusão de arquivos de log, caches e temporários
-├── .env.example      # Variáveis de ambiente de referência
-├── deploy.ps1        # Script PowerShell de automação para conexão e push no GitHub
-├── deploy.bat        # Script Batch para execução rápida no Windows
-└── README.md         # Documentação completa do projeto
+├── index.html           # Aplicação completa (HTML5, Tailwind, React 18, Componentes e Dados)
+├── Logo.jpeg            # Logotipo oficial: ALLOGGI NEGÓCIOS IMOBILIÁRIOS
+├── Logo cresci.jpeg     # Emblemas oficiais de credenciamento CRECI-SP e CREA-SP
+├── server.js            # Servidor HTTP nativo em Node.js com MIME types e SPA fallback
+├── package.json         # Metadados do projeto e scripts npm
+├── .gitignore           # Regras de exclusão de arquivos de log, caches e temporários
+├── .env.example         # Variáveis de ambiente de referência
+├── deploy.ps1           # Script PowerShell de automação para conexão e push no GitHub
+├── deploy.bat           # Script Batch para execução rápida no Windows
+└── README.md            # Documentação completa do projeto
 ```
 
 ---
