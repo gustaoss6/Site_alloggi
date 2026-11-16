@@ -17,6 +17,7 @@ const MIME_TYPES = {
   '.svg': 'image/svg+xml',
   '.ico': 'image/x-icon',
   '.webp': 'image/webp',
+  '.webmanifest': 'application/manifest+json',
 };
 
 const server = http.createServer((req, res) => {

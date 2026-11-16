@@ -126,6 +126,15 @@ O design foi concebido para transmitir **confiança, frescor, sofisticação e c
 ├── index.html           # Aplicação completa (HTML5, Tailwind, React 18, Componentes e Dados)
 ├── Logo.jpeg            # Logotipo oficial: ALLOGGI NEGÓCIOS IMOBILIÁRIOS
 ├── Logo cresci.jpeg     # Emblemas oficiais de credenciamento CRECI-SP e CREA-SP
+├── favicon.ico          # Ícone multi-resolução para navegadores (16x16, 32x32, 48x48)
+├── favicon-48x48.png    # Favicon oficial Google Search (1:1)
+├── favicon-96x96.png    # Favicon alta densidade Google Search / Android (96x96)
+├── favicon-144x144.png  # Favicon 144x144 para Google Search / Windows
+├── favicon-192x192.png  # Favicon Android PWA (192x192)
+├── favicon-512x512.png  # Favicon splash / Android (512x512)
+├── apple-touch-icon.png # Ícone oficial para dispositivos Apple iOS (180x180)
+├── site.webmanifest     # Manifesto PWA com metadados e ícones da aplicação
+├── public/              # Espelho estático dos ícones para deploy estático no Render
 ├── server.js            # Servidor HTTP nativo em Node.js com MIME types e SPA fallback
 ├── package.json         # Metadados do projeto e scripts npm
 ├── .gitignore           # Regras de exclusão de arquivos de log, caches e temporários
