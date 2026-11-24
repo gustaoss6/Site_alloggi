@@ -77,6 +77,10 @@
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
+  <!-- Estrutura Modular de Imóveis (Subpastas individuais + Supabase Storage) -->
+  <script src="imoveis/11.138/dados.js"></script>
+  <script src="imoveis/catalogo.js"></script>
+
   <style>
     /* Estilos globais e refinamentos estéticos */
     body {
@@ -129,390 +133,13 @@
   <script type="text/babel">
     const { useState, useEffect, useMemo } = React;
 
-    // --- BANCO DE DADOS DOS IMÓVEIS ALLOGGI ---
-    const PROPERTIES_DATA = [
-      {
-        id: 1,
-        code: "ALG-101",
-        title: "Cobertura Duplex Suspensa com Vista Panorâmica",
-        neighborhood: "Jardins",
-        city: "São Paulo",
-        purpose: "Comprar",
-        type: "Cobertura",
-        price: 8900000,
-        condo: 6800,
-        iptu: 2400,
-        area: 450,
-        bedrooms: 4,
-        suites: 4,
-        bathrooms: 5,
-        parking: 4,
-        tag: "Exclusivo Alloggi",
-        tagType: "exclusive",
-        description: "Uma verdadeira obra de arte arquitetônica suspensa sobre o coração dos Jardins. Esta magnífica cobertura duplex conta com pé-direito duplo de 6 metros no living, acabamento nobre em mármore travertino romano bruto, adega climatizada envidraçada para 450 rótulos e um terraço privativo espetacular com piscina aquecida de borda infinita e vista indevassável de 360 graus para a copa das árvores e o skyline paulistano.",
-        amenities: [
-          "Piscina Privativa Aquecida",
-          "Adega Climatizada para 450 Rótulos",
-          "Varanda Gourmet com Parrilla",
-          "Pé-direito Duplo no Living",
-          "Elevador com Acesso Biométrico",
-          "Ar Condicionado Central VRF",
-          "Gerador Full para Todo o Imóvel",
-          "4 Vagas Livres Demarcadas"
-        ],
-        images: [
-          "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80",
-          "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80",
-          "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1200&q=80",
-          "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80"
-        ]
-      },
-      {
-        id: 2,
-        code: "ALG-102",
-        title: "Apartamento Contemporâneo com Living Integrado",
-        neighborhood: "Itaim Bibi",
-        city: "São Paulo",
-        purpose: "Comprar",
-        type: "Apartamento",
-        price: 3850000,
-        condo: 2950,
-        iptu: 1100,
-        area: 185,
-        bedrooms: 3,
-        suites: 3,
-        bathrooms: 4,
-        parking: 3,
-        tag: "Venda",
-        tagType: "sale",
-        description: "Localizado em uma das ruas mais arborizadas e cobiçadas do Itaim Bibi, a poucos passos da Av. Faria Lima e dos mais estrelados restaurantes da cidade. Planta impecável com total integração entre sala de estar, sala de jantar e varanda gourmet envidraçada. Projeto luminotécnico assinado, marcenaria de alto padrão e automação completa de persianas, áudio e iluminação.",
-        amenities: [
-          "Varanda Gourmet com Churrasqueira",
-          "Automação Residencial Control4",
-          "Academia com Equipamentos Matrix",
-          "Piscina Coberta com Raia de 25m",
-          "Spa com Sauna Seca e Úmida",
-          "Carregador Dedicado para Carro Elétrico",
-          "Portaria Blindada e Segurança 24h",
-          "Depósito Privativo na Garagem"
-        ],
-        images: [
-          "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80",
-          "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80",
-          "https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=1200&q=80",
-          "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1200&q=80"
-        ]
-      },
-      {
-        id: 3,
-        code: "ALG-103",
-        title: "Residência Minimalista com Paisagismo Tropical",
-        neighborhood: "Alto de Pinheiros",
-        city: "São Paulo",
-        purpose: "Comprar",
-        type: "Casa",
-        price: 9200000,
-        condo: 0,
-        iptu: 2800,
-        area: 510,
-        bedrooms: 4,
-        suites: 4,
-        bathrooms: 5,
-        parking: 4,
-        tag: "Destaque",
-        tagType: "featured",
-        description: "Concebida para conectar os ambientes internos à natureza exuberante de um projeto paisagístico tropical assinado. A casa conta com grandes panos de vidro do chão ao teto, piso em tábua corrida de cumaru de demolição e ampla área externa com piscina em pedra Hijau natural da Indonésia, solarium de madeira teca e espaço gourmet completo.",
-        amenities: [
-          "Piscina Aquecida em Pedra Hijau",
-          "Paisagismo Tropical com Irrigação Automática",
-          "Espaço Gourmet com Forno a Lenha e Parrilla",
-          "Usina de Energia Solar Fotovoltaica",
-          "Circuito Fechado de TV com IA",
-          "Lareira Ecológica a Bioetanol",
-          "Home Office Privativo com Vista Jardim",
-          "Guarita de Segurança com Blindagem III-A"
-        ],
-        images: [
-          "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80",
-          "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1200&q=80",
-          "https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=1200&q=80",
-          "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1200&q=80"
-        ]
-      },
-      {
-        id: 4,
-        code: "ALG-104",
-        title: "Garden Residence Exclusivo Frente à Praça",
-        neighborhood: "Vila Nova Conceição",
-        city: "São Paulo",
-        purpose: "Alugar",
-        type: "Apartamento",
-        price: 22000,
-        condo: 3800,
-        iptu: 1400,
-        area: 240,
-        bedrooms: 3,
-        suites: 3,
-        bathrooms: 4,
-        parking: 3,
-        tag: "Locação",
-        tagType: "rent",
-        description: "A rara experiência de desfrutar do espaço e da privacidade de uma casa com a comodidade e segurança máxima de um condomínio boutique a poucos metros da Praça Pereira Coutinho. Jardim privativo gramado com jacuzzi aquecida, decorado com peças de designers premiados e cozinha gourmet equipada com eletrodomésticos italianos de última geração.",
-        amenities: [
-          "Jardim Privativo Gramado com Jacuzzi",
-          "Mobiliado e Decorado por Arquiteto Renomado",
-          "Eletrodomésticos Italianos Bertazzoni",
-          "Serviço de Concierge 24 Horas",
-          "Sauna Seca Privativa na Suíte Master",
-          "Academia Technogym no Prédio",
-          "Vagas com Ponto de Carga Rápida",
-          "Sistema de Filtração Central de Água"
-        ],
-        images: [
-          "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=80",
-          "https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&w=1200&q=80",
-          "https://images.unsplash.com/photo-1600585152220-90363fe7e115?auto=format&fit=crop&w=1200&q=80",
-          "https://images.unsplash.com/photo-1600573472591-ee6b68d14c68?auto=format&fit=crop&w=1200&q=80"
-        ]
-      },
-      {
-        id: 5,
-        code: "ALG-105",
-        title: "Cobertura Linear com Solarium e Spa Privativo",
-        neighborhood: "Pinheiros",
-        city: "São Paulo",
-        purpose: "Comprar",
-        type: "Cobertura",
-        price: 4600000,
-        condo: 3400,
-        iptu: 1250,
-        area: 210,
-        bedrooms: 3,
-        suites: 2,
-        bathrooms: 3,
-        parking: 2,
-        tag: "Venda",
-        tagType: "sale",
-        description: "Cobertura de plano único que une fluidez, requinte e sofisticação no bairro mais cosmopolita e vibrante de São Paulo. Área externa ensolarada com pergolado em madeira maciça, espaço gourmet integrado e deck suspenso com spa de hidromassagem para até 6 pessoas. Living amplo e acolhedor conectado à cozinha de conceito aberto.",
-        amenities: [
-          "Solarium Privativo com Spa de Hidro",
-          "Pergolado em Madeira com Área Lounge",
-          "Cozinha em Ilha Gourmet com Cooktop de Indução",
-          "Fechadura Digital com Biometria e Senha",
-          "Espaço Coworking Privativo no Edifício",
-          "Piscina Coberta Aquecida",
-          "Pet Place e Área Verde para Passeio",
-          "2 Vagas Grandes e Livres"
-        ],
-        images: [
-          "https://images.unsplash.com/photo-1567496898669-ee935f5f647a?auto=format&fit=crop&w=1200&q=80",
-          "https://images.unsplash.com/photo-1502005229762-ee1b2da92c0b?auto=format&fit=crop&w=1200&q=80",
-          "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=80"
-        ]
-      },
-      {
-        id: 6,
-        code: "ALG-106",
-        title: "Studio Design Boutique com Vista para as Árvores",
-        neighborhood: "Moema",
-        city: "São Paulo",
-        purpose: "Alugar",
-        type: "Apartamento",
-        price: 5800,
-        condo: 850,
-        iptu: 320,
-        area: 58,
-        bedrooms: 1,
-        suites: 1,
-        bathrooms: 1,
-        parking: 1,
-        tag: "Locação",
-        tagType: "rent",
-        description: "Perfeito para executivos e profissionais exigentes que valorizam conveniência, bom gosto e localização privilegiada no lado Pássaros de Moema. Planta milimetricamente planejada com marcenaria ripada sob medida, varanda espaçosa voltada para a copa das árvores e condomínio com estrutura completa de hotel boutique cinco estrelas.",
-        amenities: [
-          "Rooftop com Piscina Panorâmica e Lounge",
-          "Serviço de Lavanderia OMO Compartilhada",
-          "Academia Completa Life Fitness",
-          "Espaço Gourmet com Vista da Cidade",
-          "Tomada Dedicada para Veículo Elétrico",
-          "Concierge e Recepção 24 Horas"
-        ],
-        images: [
-          "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=1200&q=80",
-          "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=1200&q=80",
-          "https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=1200&q=80"
-        ]
-      },
-      {
-        id: 7,
-        code: "ALG-107",
-        title: "Mansão Neoclássica Contemporânea com Quadra de Beach Tennis",
-        neighborhood: "Jardins",
-        city: "São Paulo",
-        purpose: "Comprar",
-        type: "Casa",
-        price: 14500000,
-        condo: 0,
-        iptu: 4500,
-        area: 780,
-        bedrooms: 5,
-        suites: 5,
-        bathrooms: 7,
-        parking: 6,
-        tag: "Exclusivo Alloggi",
-        tagType: "exclusive",
-        description: "Um refúgio de absoluta privacidade e requinte monumental no Jardim Europa. Projeto arquitetônico de referência com vãos livres majestosos, mármore pighes importado e marcenaria Ornare em todos os ambientes. Estrutura de lazer comparável a um resort particular, com raia de 18 metros aquecida, quadra oficial de beach tennis e espaço para recepções de até 60 convidados.",
-        amenities: [
-          "Quadra Oficial de Beach Tennis e Pickleball",
-          "Piscina Aquecida de 18 Metros",
-          "Sauna Úmida com Parede de Vidro para o Jardim",
-          "Guarita Blindada Própria no Acesso",
-          "Home Theater com Isolamento Acústico",
-          "Adega Subterrânea Climatizada",
-          "Suíte Master com 90m² e Closets Individuais",
-          "Garagem Subterrânea para 6 Carros"
-        ],
-        images: [
-          "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1200&q=80",
-          "https://images.unsplash.com/photo-1600607687644-c7171b42498f?auto=format&fit=crop&w=1200&q=80",
-          "https://images.unsplash.com/photo-1600585154363-67eb9e2e2099?auto=format&fit=crop&w=1200&q=80"
-        ]
-      },
-      {
-        id: 8,
-        code: "ALG-108",
-        title: "Apartamento Vista Parque Ibirapuera",
-        neighborhood: "Vila Mariana",
-        city: "São Paulo",
-        purpose: "Alugar",
-        type: "Apartamento",
-        price: 14500,
-        condo: 2600,
-        iptu: 980,
-        area: 165,
-        bedrooms: 3,
-        suites: 3,
-        bathrooms: 3,
-        parking: 2,
-        tag: "Locação",
-        tagType: "rent",
-        description: "Desperte todos os dias contemplando o mar de copas verdes do Parque do Ibirapuera. Apartamento completamente remodelado com acabamentos de altíssimo padrão, varanda envidraçada sem emendas integrada ao living, climatização central silenciosa e armários planejados de marcenaria nobre em todas as suítes.",
-        amenities: [
-          "Vista Eterna e Definitiva para o Parque Ibirapuera",
-          "Varanda Integrada ao Living Social",
-          "Condomínio Clube com Infraestrutura Completa",
-          "Piscina Aquecida Coberta com Teto de Vidro",
-          "Quadra de Tênis Oficial de Saibro",
-          "Espaço Gourmet e Salão de Festas Climatizado"
-        ],
-        images: [
-          "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&w=1200&q=80",
-          "https://images.unsplash.com/photo-1600585152220-90363fe7e115?auto=format&fit=crop&w=1200&q=80",
-          "https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&w=1200&q=80"
-        ]
-      },
-      {
-        id: 9,
-        code: "ALG-109",
-        title: "Penthouse Clássica com Terraço Jardim em Higienópolis",
-        neighborhood: "Higienópolis",
-        city: "São Paulo",
-        purpose: "Comprar",
-        type: "Cobertura",
-        price: 6400000,
-        condo: 4200,
-        iptu: 1800,
-        area: 310,
-        bedrooms: 4,
-        suites: 3,
-        bathrooms: 5,
-        parking: 3,
-        tag: "Venda",
-        tagType: "sale",
-        description: "A clássica sofisticação paulistana traduzida em um imóvel único no coração cultural de Higienópolis. Amplo living com múltiplos ambientes, lareira em mármore nero marquina, pé-direito clássico generoso e um deslumbrante terraço com jardim arborizado privativo, criando um verdadeiro oásis urbano a passos do Shopping Pátio Higienópolis.",
-        amenities: [
-          "Terraço Arborizado com Deck em Madeira",
-          "Lareira Clássica em Mármore Nero Marquina",
-          "Piso em Madeira Maciça de Ébano Restaurado",
-          "Edifício de Arquitetura Clássica Preservada",
-          "3 Vagas Livres no Subsolo",
-          "Portaria com Segurança 24 Horas Armada"
-        ],
-        images: [
-          "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1200&q=80",
-          "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80",
-          "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80"
-        ]
-      },
-      {
-        id: 10,
-        code: "ALG-110",
-        title: "Laje Corporativa Triple A na Faria Lima",
-        neighborhood: "Itaim Bibi",
-        city: "São Paulo",
-        purpose: "Comprar",
-        type: "Comercial",
-        price: 15000000,
-        condo: 12000,
-        iptu: 5400,
-        area: 680,
-        bedrooms: 0,
-        suites: 0,
-        bathrooms: 8,
-        parking: 12,
-        tag: "Comercial",
-        tagType: "commercial",
-        description: "Prestígio corporativo absoluto no epicentro financeiro da América Latina. Andar corrido com certificação LEED Platinum, piso elevado com cabeamento estruturado categoria 6A, forro modular acústico com iluminação LED inteligente, ar condicionado central VRF de altíssima eficiência e 12 vagas de garagem demarcadas.",
-        amenities: [
-          "Certificação Sustentável LEED Platinum",
-          "Auditório Corporativo e Heliponto Homologado",
-          "Ar Condicionado Central VRF Inteligente",
-          "Gerador com Autonomia de 100% da Carga",
-          "Controle de Acesso com Reconhecimento Facial 3D",
-          "12 Vagas de Garagem com Manobrista"
-        ],
-        images: [
-          "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80",
-          "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=1200&q=80",
-          "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80"
-        ]
-      },
-      {
-        id: 11,
-        code: "ALG-111",
-        title: "Terreno Plano com Projeto Arquitetônico Aprovado",
-        neighborhood: "Cidade Jardim",
-        city: "São Paulo",
-        purpose: "Comprar",
-        type: "Terreno",
-        price: 6800000,
-        condo: 2800,
-        iptu: 1450,
-        area: 950,
-        bedrooms: 0,
-        suites: 0,
-        bathrooms: 0,
-        parking: 6,
-        tag: "Exclusivo",
-        tagType: "exclusive",
-        description: "Raríssima oportunidade em um dos bolsões mais protegidos e arborizados de Cidade Jardim. Terreno totalmente plano com 950m² de área privativa e testada frontal de 26 metros lineares. Inclui projeto arquitetônico contemporâneo completo já aprovado na Prefeitura e no condomínio, assinado por renomado escritório paulistano, prevendo residência de 850m² com 5 suítes, piscina com raia, solarium e subsolo para 6 carros.",
-        amenities: [
-          "Topografia 100% Plana e Limpa",
-          "Projeto Arquitetônico Aprovado na Prefeitura",
-          "Condomínio com Monitoramento e Guarita Armada 24h",
-          "Testada Frontal Imponente de 26 Metros",
-          "Fiação Elétrica e Cabeamento 100% Subterrâneos",
-          "Estudo Geotécnico e Topográfico Concluídos",
-          "Paisagismo Perimetral com Árvores Nativas Preservadas",
-          "A Poucos Minutos dos Melhores Clubes e Escolas"
-        ],
-        images: [
-          "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1200&q=80",
-          "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80",
-          "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80"
-        ]
-      }
-    ];
+    // --- CATÁLOGO DINÂMICO DE IMÓVEIS ALLOGGI ---
+    // Puxa automaticamente as subpastas em imoveis/ (iniciando por imoveis/11.138/dados.js)
+    const PROPERTIES_DATA = (typeof window !== 'undefined' && typeof window.obterCatalogoImoveis === 'function')
+      ? window.obterCatalogoImoveis()
+      : (typeof window !== 'undefined' && window.CATALOGO_IMOVEIS)
+        ? window.CATALOGO_IMOVEIS
+        : [];
 
     // --- HELPER COMPONENT: ÍCONES SVG PERSONALIZADOS EM VERDE-ESMERALDA ---
     function Icon({ name, className = "w-5 h-5", ...props }) {
@@ -666,6 +293,26 @@
           return (
             <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" {...props}>
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+          );
+        case "video":
+        case "play":
+          return (
+            <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" {...props}>
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          );
+        case "youtube":
+          return (
+            <svg className={className} fill="currentColor" viewBox="0 0 24 24" {...props}>
+              <path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+            </svg>
+          );
+        case "external-link":
+          return (
+            <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" {...props}>
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
             </svg>
           );
         default:
@@ -837,14 +484,23 @@
             if (property.parking < minParking) return false;
           }
 
-          // Busca textual livre (título, bairro, código, descrição)
+          // Busca textual livre (título, bairro, código, endereço, descrição)
           if (searchQuery.trim() !== '') {
-            const query = searchQuery.toLowerCase();
+            const query = searchQuery.toLowerCase().trim();
+            const queryNoDots = query.replace(/\./g, '');
             const matchTitle = property.title.toLowerCase().includes(query);
             const matchBairro = property.neighborhood.toLowerCase().includes(query);
-            const matchCode = property.code.toLowerCase().includes(query);
+            const codeStr = String(property.code).toLowerCase();
+            const matchCode = codeStr.includes(query) || codeStr.replace(/\./g, '').includes(queryNoDots);
             const matchDesc = property.description.toLowerCase().includes(query);
-            if (!matchTitle && !matchBairro && !matchCode && !matchDesc) {
+            const matchAddress = property.address && (
+              (typeof property.address === 'string' && property.address.toLowerCase().includes(query)) ||
+              (property.address.full && property.address.full.toLowerCase().includes(query)) ||
+              (property.address.street && property.address.street.toLowerCase().includes(query)) ||
+              (property.address.cep && property.address.cep.toLowerCase().includes(query))
+            );
+            const matchVideo = (query.includes('video') || query.includes('vídeo') || query.includes('tour') || query.includes('youtube')) && Boolean(property.video);
+            if (!matchTitle && !matchBairro && !matchCode && !matchDesc && !matchAddress && !matchVideo) {
               return false;
             }
           }
@@ -1375,7 +1031,8 @@
                         onChange={(e) => setLocation(e.target.value)}
                         className="w-full appearance-none bg-offwhite hover:bg-gray-100/70 border border-gray-200 rounded-xl px-4 py-3 text-sm text-charcoal font-medium focus:outline-none focus:ring-2 focus:ring-emerald focus:bg-white transition-all cursor-pointer"
                       >
-                        <option value="todos">Todos os Bairros Nobres</option>
+                        <option value="todos">Todos os Bairros</option>
+                        <option value="Jd. Mirim">Jd. Mirim (Zona Sul)</option>
                         <option value="Jardins">Jardins / Jd. Europa</option>
                         <option value="Itaim Bibi">Itaim Bibi</option>
                         <option value="Pinheiros">Pinheiros</option>
@@ -1614,7 +1271,7 @@
                       {/* Imagem de Capa com Tag e Botão Favoritar */}
                       <div className="relative aspect-[16/10] overflow-hidden bg-gray-100 cursor-pointer" onClick={() => handleOpenDetails(property)}>
                         <img 
-                          src={property.images[0]} 
+                          src={property.cover || property.images[0]} 
                           alt={property.title}
                           loading="lazy"
                           decoding="async"
@@ -1628,6 +1285,16 @@
                             {property.tag}
                           </span>
                         </div>
+
+                        {/* Selo de Vídeo Tour Disponível */}
+                        {property.video && (
+                          <div className="absolute top-3.5 right-14 z-10">
+                            <span className="inline-flex items-center space-x-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-white/95 text-red-600 shadow-sm backdrop-blur-md">
+                              <span className="w-2 h-2 rounded-full bg-red-600 animate-pulse"></span>
+                              <span>Vídeo Tour</span>
+                            </span>
+                          </div>
+                        )}
 
                         {/* Botão de Favoritar (Coração) */}
                         <button
@@ -1659,7 +1326,7 @@
                           {/* Localização com Ícone Minimalista */}
                           <div className="flex items-center space-x-1.5 text-xs font-semibold text-emerald mb-2">
                             <Icon name="pin" className="w-3.5 h-3.5 text-emerald" />
-                            <span>{property.neighborhood}, {property.city}</span>
+                            <span>{property.address?.street ? `${property.address.street} - ${property.neighborhood}` : `${property.neighborhood}, ${property.city}`}</span>
                           </div>
 
                           {/* Título do Imóvel */}
@@ -2040,6 +1707,9 @@
                       
                       <div className="bg-black/60 backdrop-blur-md px-3 py-1 rounded-full text-white text-xs font-medium">
                         Foto {galleryIndex + 1} de {selectedProperty.images.length}
+                        {selectedProperty.gallery && selectedProperty.gallery[galleryIndex] && (
+                          <span className="ml-1.5 font-semibold text-sage">• {selectedProperty.gallery[galleryIndex].label || selectedProperty.gallery[galleryIndex].title}</span>
+                        )}
                       </div>
 
                       <button 
@@ -2052,20 +1722,32 @@
                   )}
                 </div>
 
-                {/* Tira de Miniaturas (Thumbnails) */}
+                {/* Tira de Miniaturas (Thumbnails) e Atalho de Vídeo Tour */}
                 {selectedProperty.images.length > 1 && (
-                  <div className="flex gap-2 p-3 bg-offwhite border-b border-gray-100 overflow-x-auto">
-                    {selectedProperty.images.map((img, idx) => (
-                      <button
-                        key={idx}
-                        onClick={() => setGalleryIndex(idx)}
-                        className={`relative w-20 h-14 rounded-lg overflow-hidden flex-shrink-0 border-2 transition-all ${
-                          galleryIndex === idx ? 'border-emerald scale-95 shadow-md' : 'border-transparent opacity-70 hover:opacity-100'
-                        }`}
+                  <div className="flex items-center justify-between gap-2 p-3 bg-offwhite border-b border-gray-100">
+                    <div className="flex gap-2 overflow-x-auto flex-1">
+                      {selectedProperty.images.map((img, idx) => (
+                        <button
+                          key={idx}
+                          onClick={() => setGalleryIndex(idx)}
+                          className={`relative w-20 h-14 rounded-lg overflow-hidden flex-shrink-0 border-2 transition-all ${
+                            galleryIndex === idx ? 'border-emerald scale-95 shadow-md' : 'border-transparent opacity-70 hover:opacity-100'
+                          }`}
+                        >
+                          <img src={img} alt="Miniatura" loading="lazy" decoding="async" className="w-full h-full object-cover" />
+                        </button>
+                      ))}
+                    </div>
+
+                    {selectedProperty.video && (
+                      <a
+                        href="#modal-video-tour"
+                        className="flex-shrink-0 px-3 py-2 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-bold flex items-center space-x-1.5 shadow-sm transition-all active:scale-95 ml-2"
                       >
-                        <img src={img} alt="Miniatura" loading="lazy" decoding="async" className="w-full h-full object-cover" />
-                      </button>
-                    ))}
+                        <Icon name="play" className="w-4 h-4" />
+                        <span className="hidden sm:inline">Ver Vídeo Tour</span>
+                      </a>
+                    )}
                   </div>
                 )}
 
@@ -2077,7 +1759,7 @@
                     <div>
                       <div className="flex items-center space-x-2 text-xs font-semibold text-emerald mb-1">
                         <Icon name="pin" className="w-4 h-4 text-emerald" />
-                        <span>{selectedProperty.neighborhood}, {selectedProperty.city}</span>
+                        <span>{selectedProperty.address?.full || (selectedProperty.address?.street ? `${selectedProperty.address.street} - ${selectedProperty.neighborhood}, ${selectedProperty.city}` : `${selectedProperty.neighborhood}, ${selectedProperty.city}`)}</span>
                         <span className="text-gray-300">•</span>
                         <span className="text-charcoal-subtle">Cód: {selectedProperty.code}</span>
                       </div>
@@ -2147,6 +1829,54 @@
                       </div>
                     </div>
                   </div>
+
+                  {/* Seção de Vídeo Tour Integrado (YouTube) */}
+                  {selectedProperty.video && (
+                    <div id="modal-video-tour" className="p-5 sm:p-7 rounded-3xl bg-forest-dark text-white shadow-luxury border border-forest-light">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+                        <div className="flex items-center space-x-3">
+                          <div className="w-10 h-10 rounded-2xl bg-red-600 text-white flex items-center justify-center shadow-md">
+                            <Icon name="youtube" className="w-6 h-6" />
+                          </div>
+                          <div>
+                            <div className="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-white/10 text-sage mb-0.5">
+                              <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse"></span>
+                              <span>Vídeo Tour Exclusivo</span>
+                            </div>
+                            <h3 className="font-serif text-xl sm:text-2xl font-bold text-white">
+                              Tour em Vídeo da Residência
+                            </h3>
+                          </div>
+                        </div>
+
+                        <a
+                          href={selectedProperty.video}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center space-x-1.5 px-4 py-2 rounded-xl text-xs font-semibold bg-white text-forest hover:bg-sage transition-all shadow-sm active:scale-95 w-fit"
+                        >
+                          <Icon name="play" className="w-4 h-4 text-red-600" />
+                          <span>Assistir no YouTube</span>
+                          <Icon name="external-link" className="w-3.5 h-3.5 text-forest/70" />
+                        </a>
+                      </div>
+
+                      <p className="text-xs sm:text-sm text-sage/80 mb-4 leading-relaxed">
+                        Faça uma visita virtual completa em vídeo e conheça cada detalhe dos ambientes internos, acabamentos e área gourmet:
+                      </p>
+
+                      {/* Player Embutido Responsivo */}
+                      <div className="relative aspect-video w-full rounded-2xl overflow-hidden shadow-2xl bg-black border border-white/10">
+                        <iframe
+                          src={selectedProperty.videoEmbed || `https://www.youtube-nocookie.com/embed/${selectedProperty.videoId || 'Cn9Bhoxb07M'}?rel=0&modestbranding=1`}
+                          title={`Vídeo Tour - ${selectedProperty.title}`}
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                          allowFullScreen
+                          className="w-full h-full border-0"
+                        ></iframe>
+                      </div>
+                    </div>
+                  )}
 
                   {/* Descrição Detalhada */}
                   <div>
