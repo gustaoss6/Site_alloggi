@@ -43,9 +43,9 @@ const IMOVEL_11_138 = {
     "Pronto para Morar"
   ],
   // Vídeo Tour Oficial no YouTube
-  video: "https://www.youtube.com/watch?v=Cn9Bhoxb07M",
-  videoId: "Cn9Bhoxb07M",
-  videoEmbed: "https://www.youtube-nocookie.com/embed/Cn9Bhoxb07M",
+  video: "https://www.youtube.com/watch?v=79wl6aVP6mw",
+  videoId: "79wl6aVP6mw",
+  videoEmbed: "https://www.youtube-nocookie.com/embed/79wl6aVP6mw",
   // Imagem de capa principal (externa.webp no Supabase Storage)
   cover: "https://kovsehbcrmnbpmjqjweo.supabase.co/storage/v1/object/public/Imoveis/11.138%20-%20R.%20Padre%20antonio%20gouveia%20-%20138/externa.webp",
   // Lista ordenada de todas as imagens no Supabase Storage
