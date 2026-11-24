@@ -19,8 +19,8 @@ const IMOVEL_11_138 = {
   suites: 1,
   bathrooms: 2,
   parking: 2,
-  tag: "Destaque Supabase",
-  tagType: "exclusive",
+  tag: "À Venda",
+  tagType: "sale",
   address: {
     street: "R. Padre Antônio Gouveia, 371",
     neighborhood: "Jd. Mirim",
