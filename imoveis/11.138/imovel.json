@@ -16,12 +16,12 @@
   "tag": "À Venda",
   "tagType": "sale",
   "address": {
-    "street": "R. Padre Antônio Gouveia, 371",
+    "street": "R. Padre Antônio Gouveia",
     "neighborhood": "Jd. Mirim",
     "city": "São Paulo",
     "state": "SP",
     "cep": "04.416-200",
-    "full": "R. Padre Antônio Gouveia, 371 - Jd. Mirim, São Paulo - SP, CEP 04.416-200"
+    "full": "R. Padre Antônio Gouveia - Jd. Mirim, São Paulo - SP, CEP 04.416-200"
   },
   "neighborhood": "Jd. Mirim",
   "city": "São Paulo",
