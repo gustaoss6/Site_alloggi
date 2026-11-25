@@ -11,7 +11,7 @@ const IMOVEL_11_138 = {
   title: "Casa 11.138 - Residência com Área Gourmet e Churrasqueira no Jd. Mirim",
   purpose: "Comprar",
   type: "Casa",
-  price: 580000,
+  price: 604000,
   condo: 0,
   iptu: 150,
   area: 138,
