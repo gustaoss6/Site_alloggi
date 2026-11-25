@@ -13,7 +13,7 @@ const IMOVEL_11_138 = {
   type: "Casa",
   price: 604000,
   condo: 0,
-  iptu: 150,
+  iptu: 0,
   area: 138,
   bedrooms: 2,
   suites: 1,

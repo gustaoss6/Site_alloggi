@@ -1397,7 +1397,7 @@
                               )}
                             </div>
                             <div className="text-xs text-charcoal-muted mt-0.5">
-                              Condomínio: {property.condo > 0 ? formatCurrency(property.condo) : 'Incluso'} • IPTU: {formatCurrency(property.iptu)}/mês
+                              IPTU: {property.iptu > 0 ? formatCurrency(property.iptu) + '/mês' : 'A Avaliar'}
                             </div>
                           </div>
                         </div>
@@ -1823,7 +1823,7 @@
                         {selectedProperty.purpose === 'Alugar' && <span className="text-sm font-normal text-charcoal-subtle">/mês</span>}
                       </div>
                       <div className="text-xs text-charcoal-muted mt-1">
-                        Condomínio: {selectedProperty.condo > 0 ? formatCurrency(selectedProperty.condo) : 'Isento'} | IPTU: {formatCurrency(selectedProperty.iptu)}/mês
+                        IPTU: {selectedProperty.iptu > 0 ? formatCurrency(selectedProperty.iptu) + '/mês' : 'A Avaliar'}
                       </div>
                     </div>
                   </div>
