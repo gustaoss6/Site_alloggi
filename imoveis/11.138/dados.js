@@ -1,6 +1,6 @@
 /**
  * Imóvel: 11.138
- * Endereço: R. Padre Antônio Gouveia, 371 - Jd. Mirim, São Paulo - SP, CEP 04.416-200
+ * Endereço: R. Padre Antônio Gouveia - Jardim Miriam, São Paulo - SP, CEP 04.416-200
  * Fotos hospedadas no Supabase Storage
  */
 
@@ -8,7 +8,7 @@ const IMOVEL_11_138 = {
   id: "11.138",
   code: "11.138",
   name: "11.138",
-  title: "Casa 11.138 - Residência com Área Gourmet e Churrasqueira no Jd. Mirim",
+  title: "Casa 11.138 - Residência com Área Gourmet e Churrasqueira no Jardim Miriam",
   purpose: "Comprar",
   type: "Casa",
   price: 604000,
@@ -23,15 +23,15 @@ const IMOVEL_11_138 = {
   tagType: "sale",
   address: {
     street: "R. Padre Antônio Gouveia",
-    neighborhood: "Jd. Mirim",
+    neighborhood: "Jardim Miriam",
     city: "São Paulo",
     state: "SP",
     cep: "04.416-200",
-    full: "R. Padre Antônio Gouveia - Jd. Mirim, São Paulo - SP, CEP 04.416-200"
+    full: "R. Padre Antônio Gouveia - Jardim Miriam, São Paulo - SP, CEP 04.416-200"
   },
-  neighborhood: "Jd. Mirim",
+  neighborhood: "Jardim Miriam",
   city: "São Paulo",
-  description: "Excelente residência térrea com ótima distribuição e ventilação natural no Jardim Mirim, Zona Sul de São Paulo. Conta com espaçosa sala de estar e jantar em dois ambientes, cozinha funcional com bancada e fogão embutido, dormitórios arejados com amplas janelas para entrada de luz, banheiro moderno com acabamento completo, e uma agradável área gourmet externa com churrasqueira perfeita para reunir família e amigos.",
+  description: "Excelente residência térrea com ótima distribuição e ventilação natural no Jardim Miriam, Zona Sul de São Paulo. Conta com espaçosa sala de estar e jantar em dois ambientes, cozinha funcional com bancada e fogão embutido, dormitórios arejados com amplas janelas para entrada de luz, banheiro moderno com acabamento completo, e uma agradável área gourmet externa com churrasqueira perfeita para reunir família e amigos.",
   amenities: [
     "Área Gourmet com Churrasqueira",
     "Cozinha Planejada com Fogão Embutido",
@@ -39,7 +39,7 @@ const IMOVEL_11_138 = {
     "Janelas Grandes com Iluminação Natural",
     "Banheiro com Revestimento Completo",
     "Garagem Privativa",
-    "Rua Residencial Tranquila no Jd. Mirim",
+    "Rua Residencial Tranquila no Jardim Miriam",
     "Pronto para Morar"
   ],
   // Vídeo Tour Oficial no YouTube
